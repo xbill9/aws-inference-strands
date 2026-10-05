@@ -1,0 +1,28 @@
+us-east-1: terminating i-0b6c7443adfac8af8
+us-east-2: terminating i-0a30ec8312b9e0476	i-0cf6bdb98141152b7
+us-west-2: terminating i-00eae995ffe871f80
+sm: destroying gemma-4-e2b-strands
+{
+  "endpoint": "gemma-4-e2b-strands",
+  "results": {
+    "endpoint": "deleted",
+    "endpoint-config": "deleted",
+    "model": "deleted"
+  }
+}
+
+Sweep (anything listed here is still billing):
+(sweep done)
+
+SSM-only security groups kept for the next run (no inbound rules), 2026-10-05T17:07:09Z:
+us-east-1 sg-04232f112257994c0	strands-demo-g5g-ssm-only	0
+us-east-2 sg-0d06fb6617a20a8ea	gpu-vllm-g6-ssm-only	0
+us-west-2 sg-05f1f649b55ad462d	strands-demo-ssm-only	0
+Instances after teardown:
+us-east-1 i-0b6c7443adfac8af8	shutting-down
+us-east-1 volumes: 1
+us-east-2 i-0a30ec8312b9e0476	terminated
+us-east-2 i-0cf6bdb98141152b7	shutting-down
+us-east-2 volumes: 1
+us-west-2 i-00eae995ffe871f80	terminated
+us-west-2 volumes: 0

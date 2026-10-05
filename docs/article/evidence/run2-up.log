@@ -1,0 +1,33 @@
+sm: deploying gemma-4-e2b-strands in us-east-2 (InService in ~8 min)
+strands-demo-trn1: no capacity in subnet-0b0f0d29473b0a624, trying the next zone
+strands-demo-g6: launched i-0cf6bdb98141152b7	us-east-2a
+strands-demo-g5g: launched i-0b6c7443adfac8af8	us-east-1a
+strands-demo-trn1: no capacity in subnet-04bce993deca43788, trying the next zone
+strands-demo-inf2: no capacity in subnet-0b0f0d29473b0a624, trying the next zone
+{
+  "endpoint": "gemma-4-e2b-strands",
+  "model_id": "xbill9/gemma-4-E2B-it-qat-q4_0-w4a16-ct-text-emb4",
+  "instance_type": null,
+  "instance_pools": [
+    "ml.g6.xlarge",
+    "ml.g6.2xlarge",
+    "ml.g6.4xlarge"
+  ],
+  "image": "763104351884.dkr.ecr.us-east-2.amazonaws.com/vllm:0.30.0-gpu-py312-cu130-ubuntu24.04-sagemaker-v1.4",
+  "role": "arn:aws:iam::<account-id>:role/sagemaker-gemma-execution-role",
+  "status": "Creating"
+}
+strands-demo-trn1: launched i-0a30ec8312b9e0476	us-east-2c
+strands-demo-inf2: no capacity in subnet-04bce993deca43788, trying the next zone
+strands-demo-inf2: no capacity in subnet-0880f3d5ac599127d, trying the next zone
+strands-demo-inf2: no zone in us-east-2 had capacity
+
+Next: stage/forward.sh (once the instances are up), then: source stage/demo.env && python3 stage/check.py
+strands-demo-inf2: no capacity in us-east-2 (subnet-0b0f0d29473b0a624), trying the next zone
+strands-demo-inf2: no capacity in us-east-2 (subnet-04bce993deca43788), trying the next zone
+strands-demo-inf2: no capacity in us-east-2 (subnet-0880f3d5ac599127d), trying the next zone
+strands-demo-inf2: no capacity in us-east-1 (subnet-061a363014b302012), trying the next zone
+strands-demo-inf2: no capacity in us-east-1 (subnet-09e0f13c0a5b43092), trying the next zone
+strands-demo-inf2: launched i-00eae995ffe871f80	us-west-2a
+
+Next: stage/forward.sh (once the instances are up), then: source stage/demo.env && python3 stage/check.py

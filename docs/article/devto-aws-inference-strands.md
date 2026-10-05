@@ -6,7 +6,7 @@ tags: aws, ai, machinelearning, gemma
 cover_image: https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/devto-cover.24af28f8.jpg
 ---
 
-This article provides a step by step survey of LLM inference on AWS: Amazon Bedrock, a SageMaker real-time endpoint, vLLM on two EC2 GPU families, and a hand-ported Gemma 4 on AWS Inferentia2 and Trainium. A Strands agent drives all six backends, and every number below comes from one day of runs with the same prompts.
+This article provides a step by step survey of LLM inference on AWS: Amazon Bedrock, a SageMaker real-time endpoint, vLLM on two EC2 GPU families, and a hand-ported Gemma 4 on AWS Inferentia2 and Trainium. A Strands agent drives all six backends, and every number below comes from two complete runs on the same day with the same prompts.
 
 https://github.com/xbill9/aws-inference-strands
 
@@ -272,9 +272,54 @@ Tokens per second here includes the network path and the prompt, measured from t
 
 ---
 
-#### Step 12 — Clean Up Four Regions
+#### Step 12 — Run It Again From One Script
 
-Every instance, endpoint, endpoint configuration and model goes; the security groups and the instance profile stay for the next run. The check covers all four US regions, because a run that fails over to another zone or region leaves its resources there:
+The second run brought every backend up from scripts in the repository's `stage/` directory, then ran every demo again at full size:
+
+```bash
+stage/up.sh 2>&1 | tee stage/up.log        # launch g6, inf2, trn1, g5g and the SageMaker endpoint
+stage/forward.sh && source stage/demo.env   # SSM port forwards and the backend variables
+python3 stage/check.py --wait 1500          # one answer and one tool call per backend
+```
+
+`up.sh` tries every zone in a region, then the next region. inf2 found no capacity anywhere in us-east-2 or us-east-1:
+
+```
+strands-demo-inf2: no capacity in us-east-2 (subnet-0880f3d5ac599127d), trying the next zone
+strands-demo-inf2: no capacity in us-east-1 (subnet-09e0f13c0a5b43092), trying the next zone
+strands-demo-inf2: launched i-00eae995ffe871f80	us-west-2a
+```
+
+Launch to the first passing check:
+
+| Backend | Launch → ready |
+|---|---|
+| SageMaker | 8.0 min to InService |
+| trn1 | 12.8 min |
+| g6 | 13.9 min |
+| inf2, us-west-2 | 17.9 min |
+| g5g | 23.7 min, of which `Loading weights took 530.83 seconds` |
+
+Demo 1 scored 20 of 20 with the filter `id >= 10` on all four tool-capable backends again, and 20 of 20 with the model counting the rows. Demo 2 ran five times; the agent asked all six backends every time, and all 30 answers were Paris. g6 was fastest in four runs and trn1 in one, by 9 ms, which is the kind of margin a model's closing sentence can misread.
+
+The benchmark ran ten repeats per backend. Medians against the first run, computed in code:
+
+| Backend | First run tok/s | Second run tok/s | Change |
+|---|---|---|---|
+| g6 | 131.5 | 132.45 | +0.7% |
+| Bedrock | 111.9 | 115.85 | +3.5% |
+| SageMaker | 106.3 | 105.2 | −1.0% |
+| g5g | 37.2 | 35.8 | −3.8% |
+| trn1 | 37.1 | 36.9 | −0.5% |
+| inf2 | 36.4 | 36.6 | +0.5% |
+
+Every self-hosted backend stayed within 4% of its first run, inf2 in a different region. At temperature 0 each self-hosted backend returned one completion across its ten repeats, and Bedrock returned 9 distinct completions in 10. **g6 and SageMaker returned the same text word for word**, the same weights on the same GPU type, and **so did inf2 and trn1**, one image digest on two chips in two regions.
+
+---
+
+#### Step 13 — Clean Up Four Regions
+
+`stage/down.sh` does this in one command. Every instance, endpoint, endpoint configuration and model goes; the security groups and the instance profile stay for the next run. The check covers all four US regions, because a run that fails over to another zone or region leaves its resources there:
 
 ```
 === us-east-1 inst:[] vols:[] sm-ep:[] sm-cfg:[] sm-model:[] spot:[]
@@ -287,7 +332,9 @@ Every instance, endpoint, endpoint configuration and model goes; the security gr
 
 #### 🔎 Tip: Quota Does Not Mean Availability
 
-Quota lets you ask; the zone decides. Check which zones offer the instance type (`aws ec2 describe-instance-type-offerings`) before launching, keep a second zone ready, and start anything slow, such as a SageMaker endpoint or a Neuron model load, well before you need it.
+Quota lets you ask; the zone decides. Check which zones offer the instance type (`aws ec2 describe-instance-type-offerings`) before launching, keep a second zone and a second region ready, and start anything slow, such as a SageMaker endpoint or a Neuron model load, well before you need it.
+
+On the second run inf2 was refused in five zones across us-east-2 and us-east-1 and launched in us-west-2a; `stage/up.sh` does that walk for you.
 
 ---
 
@@ -335,10 +382,10 @@ Single-request decode and on-demand price, us-east-1 list prices. Cost per milli
 | Backend | Setup on the day | Tool calls | Price model |
 |---|---|---|---|
 | Bedrock | none | yes | per token |
-| SageMaker | 8.2 min to InService | yes, via `SM_VLLM_*` | per instance hour |
-| EC2 g6 | 14.0 min to healthy | yes | per instance hour |
-| EC2 g5g | patched vLLM on a prebuilt AMI | yes | per instance hour |
-| EC2 inf2 / trn1 | 14.3 min to healthy (inf2) | no | per instance hour |
+| SageMaker | 8.2 and 8.0 min to InService | yes, via `SM_VLLM_*` | per instance hour |
+| EC2 g6 | 14.0 and 13.9 min to healthy | yes | per instance hour |
+| EC2 g5g | patched vLLM on a prebuilt AMI, 23.7 min to ready | yes | per instance hour |
+| EC2 inf2 / trn1 | inf2 14.3 min, and 17.9 min in us-west-2; trn1 12.8 min | no | per instance hour |
 
 ---
 
@@ -354,12 +401,13 @@ The goal of this article was to survey six ways to serve a model on AWS behind o
 
 - 🟢 **One Strands agent ran unchanged on Bedrock, vLLM on g6 and g5g, and SageMaker**, 20 of 20 correct with the right filter on every backend.
 - 🟢 **The Inferentia2 Gemma 4 image runs on Trainium without a rebuild**, at 37.1 tok/s against Inferentia2's 36.4, and the 26B MoE build runs too.
-- 🟢 **vLLM on a g6 decoded fastest**, 131.5 tok/s for one request.
-- ⚠️ **Quota did not guarantee capacity**: inf2 in `us-east-2a` had none, and `trn1.2xlarge` is offered in one zone.
+- 🟢 **vLLM on a g6 decoded fastest**, 131.5 tok/s for one request, and 132.45 in the second run.
+- 🟢 **A second run from one script repeated the first**: every self-hosted backend within 4% of its first-run speed, and identical text from the same stack, g6 with SageMaker and inf2 with trn1.
+- ⚠️ **Quota did not guarantee capacity**: inf2 in `us-east-2a` had none on the first run, and on the second none in any zone of us-east-2 or us-east-1, so it ran in us-west-2.
 - ⚠️ **SageMaker needed a workaround in Strands** to read vLLM 0.30's usage block.
 - ❌ **No vLLM release serves Gemma 4 on Neuron**, so the Neuron servers cannot call tools or take long prompts.
 
-Scope: one run per backend on 2026-10-05, us-east-2 except the g5g in us-east-1a, on-demand instances, client on a laptop reaching EC2 through SSM port forwards. Twenty agent runs per backend in demo 1, three in demo 2, five timed requests per backend in the benchmark. Four different models or builds were compared: Bedrock serves Nova Micro, the g6 and SageMaker rows serve the 4-bit embedding repack of Gemma 4 E2B, the g5g serves the stock E2B in fp16, and the Neuron rows serve the hand-ported E2B build, so the speed table compares serving paths with the model each path supports.
+Scope: two runs per backend on 2026-10-05, us-east-2 except the g5g in us-east-1a and the second run's inf2 in us-west-2a, on-demand instances, client on a laptop reaching EC2 through SSM port forwards. Twenty agent runs per backend in demo 1 in each run, three then five in demo 2, five then ten timed requests per backend in the benchmark. Four different models or builds were compared: Bedrock serves Nova Micro, the g6 and SageMaker rows serve the 4-bit embedding repack of Gemma 4 E2B, the g5g serves the stock E2B in fp16, and the Neuron rows serve the hand-ported E2B build, so the speed table compares serving paths with the model each path supports.
 
 The strategy for serving Gemma 4 on AWS from Bedrock to Trainium behind one Strands agent was validated with an incremental step by step approach.
 
