@@ -1,0 +1,5 @@
+$ python3 stage/ask.py g6
+vLLM on EC2 g6 (L4)  (xbill9/gemma-4-E2B-it-qat-q4_0-w4a16-ct-text-emb4)
+Q: Write a short paragraph about the ocean.
+A: The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.
+84 tokens in 0.646 s = 130.1 tok/s (timed here, network and prefill included)

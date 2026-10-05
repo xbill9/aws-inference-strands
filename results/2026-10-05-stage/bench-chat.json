@@ -1,0 +1,542 @@
+{
+  "prompt": "Write a short paragraph about the ocean.",
+  "max_tokens": 100,
+  "summary": [
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "median_seconds": 0.8634999999999999,
+      "median_tokens_per_second": 115.85,
+      "min_tps": 103.7,
+      "max_tps": 133.9,
+      "tokens": "100-100"
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "median_seconds": 0.6345000000000001,
+      "median_tokens_per_second": 132.45,
+      "min_tps": 130.2,
+      "max_tps": 132.8,
+      "tokens": "84-84"
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "median_seconds": 2.7110000000000003,
+      "median_tokens_per_second": 35.8,
+      "min_tps": 35.2,
+      "max_tps": 37.2,
+      "tokens": "97-97"
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "median_seconds": 0.798,
+      "median_tokens_per_second": 105.2,
+      "min_tps": 104.1,
+      "max_tps": 107.4,
+      "tokens": "84-84"
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "median_seconds": 2.569,
+      "median_tokens_per_second": 36.6,
+      "min_tps": 35.9,
+      "max_tps": 36.6,
+      "tokens": "94-94"
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "median_seconds": 2.5495,
+      "median_tokens_per_second": 36.9,
+      "min_tps": 36.7,
+      "max_tps": 37.1,
+      "tokens": "94-94"
+    }
+  ],
+  "runs": [
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have shaped coastlines and influenced weather patterns for millions of years. The ocean's beauty is both awe-inspiring and humbling, reflecting the delicate balance of ecosystems that depend on its health",
+      "completion_tokens": 100,
+      "seconds": 0.748,
+      "tokens_per_second": 133.6
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting an incredible diversity of life. Its depths are home to countless species, from the tiniest plankton to the majestic whales, all intricately connected within complex ecosystems. The ocean's waves and currents not only shape coastlines but also influence weather patterns and provide essential resources for human communities. As a source of both wonder and concern,",
+      "completion_tokens": 100,
+      "seconds": 0.868,
+      "tokens_per_second": 115.2
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting an incredible diversity of life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have shaped coastlines and influenced weather patterns for millions of years. The ocean's beauty is both breathtaking and humbling, reflecting the delicate balance of ecosystems that depend on its health. As a",
+      "completion_tokens": 100,
+      "seconds": 0.964,
+      "tokens_per_second": 103.7
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, all intricately connected within complex ecosystems. The ocean's waves, tides, and currents not only shape coastal landscapes but also influence weather patterns and global climate systems. Beyond its ecological significance, the ocean is",
+      "completion_tokens": 100,
+      "seconds": 0.859,
+      "tokens_per_second": 116.5
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, all interconnected in complex ecosystems. The ocean's waves, tides, and currents not only shape coastal landscapes but also influence weather patterns and global climate systems. Beyond its ecological importance, the ocean is a",
+      "completion_tokens": 100,
+      "seconds": 0.917,
+      "tokens_per_second": 109.1
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have been a source of inspiration and wonder for humans throughout history. The ocean's currents, tides, and waves are driven by the interplay of wind, gravity, and the Earth'",
+      "completion_tokens": 100,
+      "seconds": 0.747,
+      "tokens_per_second": 133.9
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have shaped coastlines and influenced weather patterns for millennia. The ocean's beauty is both breathtaking and humbling, reflecting the sun's rays and creating a mesmerizing dance of light and color",
+      "completion_tokens": 100,
+      "seconds": 0.79,
+      "tokens_per_second": 126.6
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have been a source of inspiration and wonder for humans throughout history. The ocean's currents, tides, and waves not only shape coastal landscapes but also influence weather patterns and global climate systems",
+      "completion_tokens": 100,
+      "seconds": 0.887,
+      "tokens_per_second": 112.7
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have been a source of wonder and inspiration for humans throughout history. The ocean's currents, tides, and waves are driven by complex interactions between wind, temperature, and salinity, creating",
+      "completion_tokens": 100,
+      "seconds": 0.78,
+      "tokens_per_second": 128.1
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, all intricately connected within complex ecosystems. The ocean's waves, tides, and currents not only shape coastal landscapes but also influence weather patterns and global climate systems. Beyond its ecological significance, the ocean is",
+      "completion_tokens": 100,
+      "seconds": 0.918,
+      "tokens_per_second": 109.0
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.634,
+      "tokens_per_second": 132.5
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.633,
+      "tokens_per_second": 132.7
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.635,
+      "tokens_per_second": 132.4
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.637,
+      "tokens_per_second": 131.9
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.632,
+      "tokens_per_second": 132.8
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.635,
+      "tokens_per_second": 132.3
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.633,
+      "tokens_per_second": 132.8
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.636,
+      "tokens_per_second": 132.0
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.645,
+      "tokens_per_second": 130.2
+    },
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.633,
+      "tokens_per_second": 132.8
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.611,
+      "tokens_per_second": 37.2
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.649,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.668,
+      "tokens_per_second": 36.4
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.683,
+      "tokens_per_second": 36.2
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.694,
+      "tokens_per_second": 36.0
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.733,
+      "tokens_per_second": 35.5
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.749,
+      "tokens_per_second": 35.3
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.756,
+      "tokens_per_second": 35.2
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.728,
+      "tokens_per_second": 35.6
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.738,
+      "tokens_per_second": 35.4
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.798,
+      "tokens_per_second": 105.2
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.787,
+      "tokens_per_second": 106.7
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.807,
+      "tokens_per_second": 104.1
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.802,
+      "tokens_per_second": 104.7
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.799,
+      "tokens_per_second": 105.2
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.789,
+      "tokens_per_second": 106.4
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.787,
+      "tokens_per_second": 106.8
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.782,
+      "tokens_per_second": 107.4
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.802,
+      "tokens_per_second": 104.8
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.798,
+      "tokens_per_second": 105.2
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.569,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.572,
+      "tokens_per_second": 36.5
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.567,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.565,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.566,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.565,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.573,
+      "tokens_per_second": 36.5
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.619,
+      "tokens_per_second": 35.9
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.571,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.569,
+      "tokens_per_second": 36.6
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.553,
+      "tokens_per_second": 36.8
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.548,
+      "tokens_per_second": 36.9
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.556,
+      "tokens_per_second": 36.8
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.55,
+      "tokens_per_second": 36.9
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.552,
+      "tokens_per_second": 36.8
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.545,
+      "tokens_per_second": 36.9
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.559,
+      "tokens_per_second": 36.7
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.548,
+      "tokens_per_second": 36.9
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.549,
+      "tokens_per_second": 36.9
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.",
+      "completion_tokens": 94,
+      "seconds": 2.534,
+      "tokens_per_second": 37.1
+    }
+  ]
+}

@@ -10,6 +10,20 @@ Two demos for a survey of LLM inference on AWS: Amazon Bedrock, a SageMaker endp
 
 The Neuron builds take part in demo 2 only: the hand-ported server ignores tool definitions and its prompt bucket holds 128 tokens, which a Strands agent's system prompt and tool schemas do not fit.
 
+## Bring the backends up
+
+`stage/` launches, reaches, checks and tears down every self-hosted backend. The talk's running order, with a live command for each section, is in [docs/DEMO-SCRIPT.md](docs/DEMO-SCRIPT.md).
+
+```bash
+stage/up.sh 2>&1 | tee stage/up.log      # g6, inf2, trn1, g5g, SageMaker; starts billing
+stage/forward.sh && source stage/demo.env # SSM port forwards, writes the variables below
+python3 stage/check.py --wait 1500        # one question and one tool call per backend; READY
+python3 stage/ask.py trn1                 # one backend, one question, timed
+stage/down.sh                             # terminate, delete the endpoint, sweep four regions
+```
+
+`up.sh` tries each zone, then the next region, when a launch gets no capacity. It reuses an SSM-only security group in each region and creates one with no inbound rules where none exists.
+
 ## Install
 
 ```bash

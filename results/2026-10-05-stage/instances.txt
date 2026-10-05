@@ -1,0 +1,6 @@
+strands-demo-g5g	i-0b6c7443adfac8af8	g5g.2xlarge	us-east-1a	2026-10-05T16:32:19+00:00	ami-0b44b90b3d02430ee
+strands-demo-trn1	i-0a30ec8312b9e0476	trn1.2xlarge	us-east-2c	2026-10-05T16:32:22+00:00	ami-0222021b369f03219
+strands-demo-g6	i-0cf6bdb98141152b7	g6.xlarge	us-east-2a	2026-10-05T16:32:18+00:00	ami-02d0db2aa70f08982
+strands-demo-inf2	i-00eae995ffe871f80	inf2.xlarge	us-west-2a	2026-10-05T16:34:05+00:00	ami-05a802a92b721afb9
+gemma-4-e2b-strands	InService	2026-10-05T12:32:22.212000-04:00
+None

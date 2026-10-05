@@ -39,8 +39,8 @@ def main() -> int:
         tps = [r["tokens_per_second"] for r in mine]
         secs = [r["seconds"] for r in mine]
         toks = [r["completion_tokens"] for r in mine]
-        s = {"backend": name, "label": mine[0]["label"], "median_seconds": statistics.median(secs),
-             "median_tokens_per_second": statistics.median(tps), "min_tps": min(tps), "max_tps": max(tps),
+        s = {"backend": name, "label": mine[0]["label"], "median_seconds": round(statistics.median(secs), 3),
+             "median_tokens_per_second": round(statistics.median(tps), 1), "min_tps": min(tps), "max_tps": max(tps),
              "tokens": f"{min(toks)}-{max(toks)}"}
         summary.append(s)
         print(f"{name:<10} {s['median_seconds']:>9}  {s['median_tokens_per_second']:>12}  "

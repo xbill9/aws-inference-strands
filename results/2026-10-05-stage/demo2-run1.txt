@@ -1,0 +1,18 @@
+$ python3 demo2_orchestrator.py --json results/2026-10-05-stage/demo2-run1.json
+Orchestrator: Amazon Bedrock (us.amazon.nova-micro-v1:0)
+Backends as tools: bedrock, g6, g5g, sagemaker, inf2, trn1
+
+Here is the scoreboard with the responses from each backend, ordered by the fastest response time:
+
+| Backend | Answer | Seconds | Tokens/s |
+|---------|--------|---------|----------|
+| vLLM on EC2 g6 (L4) | Paris | 0.156 | 12.8 |
+| vLLM on EC2 g5g (Graviton2 + T4G) | Paris | 0.189 | 10.6 |
+| Trainium (trn1, hand-ported) | Paris | 0.192 | 5.2 |
+| Inferentia2 (inf2, hand-ported) | Paris | 0.295 | 3.4 |
+| SageMaker endpoint (vLLM, L4) | Paris | 0.334 | 6.0 |
+| Amazon Bedrock | Paris | 0.695 | 2.9 |
+
+All backends correctly identified the capital of France as "Paris".
+
+[harness] 6 backend calls made; not asked by the agent: none

@@ -1,0 +1,11 @@
+{
+  "endpoint": "gemma-4-e2b-strands",
+  "status": "InService",
+  "created": "2026-10-05T12:32:22.212000-04:00",
+  "last_modified": "2026-10-05T12:40:21.305000-04:00",
+  "instances": 1,
+  "instance_types": [
+    "ml.g6.xlarge"
+  ],
+  "image_digest": "763104351884.dkr.ecr.us-east-2.amazonaws.com/vllm@sha256:f50ad6bf72933a1d30526e9f4c5793273d7799e9835840f7bacbb0da74dfc835"
+}

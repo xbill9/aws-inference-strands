@@ -1,0 +1,24 @@
+ask-bedrock	1.1
+ask-sagemaker	1.0
+ask-g6	0.4
+ask-g5g	0.4
+ask-inf2	0.6
+ask-trn1	0.5
+stage-demo1-engine	15.4
+stage-demo1-rows	18.3
+stage-demo2	5.3
+stage-bench	33.4
+demo1-engine	93.1
+demo1-rows	111.5
+demo2-run1	5.2
+demo2-run2	5.2
+demo2-run3	4.4
+demo2-run4	5.1
+demo2-run5	4.4
+bench-chat	103.2
+ask-bedrock (100-token prompt)	1.7
+ask-sagemaker (100-token prompt)	1.4
+ask-g6 (100-token prompt)	0.9
+ask-g5g (100-token prompt)	3.0
+ask-inf2 (100-token prompt)	2.9
+ask-trn1 (100-token prompt)	2.8

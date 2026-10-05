@@ -1,0 +1,10 @@
+$ python3 bench_chat.py --repeats 3
+Prompt: 'Write a short paragraph about the ocean.', max_tokens=100, 3 repeats per backend
+
+backend     median s  median tok/s  tok/s range     tokens
+bedrock        0.838         119.3    91.7-121.8    100-100
+g6             0.634         132.5   132.3-132.7    84-84
+g5g            2.575          37.7    37.3-38.4     97-97
+sagemaker      0.877          95.8    87.2-97.0     84-84
+inf2           2.571          36.6    29.9-36.6     94-94
+trn1           2.548          36.9    35.9-37.2     94-94

@@ -1,0 +1,5 @@
+$ python3 stage/ask.py bedrock
+Amazon Bedrock  (us.amazon.nova-micro-v1:0)
+Q: Write a short paragraph about the ocean.
+A: The ocean is a vast and mysterious expanse that covers over 70% of the Earth's surface, playing a crucial role in regulating the planet's climate and supporting a diverse array of marine life. Its deep blue waters are home to countless species, from tiny plankton to majestic whales, and its waves have been a source of inspiration and wonder for humans throughout history. The ocean's currents, tides, and waves are driven by complex interactions between the atmosphere, land, and water,
+100 tokens in 1.315 s = 76.0 tok/s (timed here, network and prefill included)

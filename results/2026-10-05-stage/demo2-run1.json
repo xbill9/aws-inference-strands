@@ -1,0 +1,54 @@
+{
+  "question": "What is the capital of France? Answer in one word.",
+  "orchestrator": "us.amazon.nova-micro-v1:0",
+  "results": [
+    {
+      "backend": "g6",
+      "label": "vLLM on EC2 g6 (L4)",
+      "text": "Paris",
+      "completion_tokens": 2,
+      "seconds": 0.156,
+      "tokens_per_second": 12.8
+    },
+    {
+      "backend": "g5g",
+      "label": "vLLM on EC2 g5g (Graviton2 + T4G)",
+      "text": "Paris",
+      "completion_tokens": 2,
+      "seconds": 0.189,
+      "tokens_per_second": 10.6
+    },
+    {
+      "backend": "trn1",
+      "label": "Trainium (trn1, hand-ported)",
+      "text": "Paris",
+      "completion_tokens": 1,
+      "seconds": 0.192,
+      "tokens_per_second": 5.2
+    },
+    {
+      "backend": "inf2",
+      "label": "Inferentia2 (inf2, hand-ported)",
+      "text": "Paris",
+      "completion_tokens": 1,
+      "seconds": 0.295,
+      "tokens_per_second": 3.4
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "Paris",
+      "completion_tokens": 2,
+      "seconds": 0.334,
+      "tokens_per_second": 6.0
+    },
+    {
+      "backend": "bedrock",
+      "label": "Amazon Bedrock",
+      "text": "Paris",
+      "completion_tokens": 2,
+      "seconds": 0.695,
+      "tokens_per_second": 2.9
+    }
+  ]
+}

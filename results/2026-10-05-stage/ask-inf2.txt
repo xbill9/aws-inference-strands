@@ -1,0 +1,5 @@
+$ python3 stage/ask.py inf2
+Inferentia2 (inf2, hand-ported)  (gemma-4-E2B-it)
+Q: Write a short paragraph about the ocean.
+A: The ocean is a vast, mesmerizing expanse of deep blue, covering over seven-tenths of our planet. It is a realm of incredible biodiversity, teeming with mysterious creatures ranging from microscopic plank to colossal whales. The ocean not only regulates our climate and produces the oxygen we breathe but also holds untold secrets, from uncharted depths to ancient geological formations. Its rhythmic waves offer a constant, soothing presence, reminding us of the immense, powerful, and beautiful natural force that surrounds us.
+94 tokens in 2.58 s = 36.4 tok/s (timed here, network and prefill included)
