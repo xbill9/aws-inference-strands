@@ -19,6 +19,7 @@ stage/up.sh 2>&1 | tee stage/up.log      # g6, inf2, trn1, g5g, SageMaker; start
 stage/forward.sh && source stage/demo.env # SSM port forwards, writes the variables below
 python3 stage/check.py --wait 1500        # one question and one tool call per backend; READY
 python3 stage/ask.py trn1                 # one backend, one question, timed
+python3 stage/present.py                  # step through the talk, slide by slide
 stage/down.sh                             # terminate, delete the endpoint, sweep four regions
 ```
 

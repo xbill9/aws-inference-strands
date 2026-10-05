@@ -16,6 +16,7 @@ Deck: https://docs.google.com/presentation/d/1Ax8KGF8T0EYffshY7WfUM61QcHmLk0q72E
 | T-30 min | `python3 stage/check.py --wait 1500` | ends with `READY` |
 | T-5 min | `stage/forward.sh && source stage/demo.env && python3 stage/check.py` | `READY` again; forwards drop after a long idle |
 | T-5 min | terminal font at 20pt or more, one pane, `clear` | |
+| T-0 | `python3 stage/present.py` beside the deck | one cue per slide; Enter runs that slide's command, `r` shows its recorded run |
 
 Measured launch to ready in the second run (`results/2026-10-05-stage/REPORT.md`): SageMaker 8.0 min, trn1 12.8 min, g6 13.9 min, inf2 17.9 min, g5g 23.7 min. The g5g's first start reads the weights from a fresh EBS volume. `up.sh` tries every zone and then the next region when one has no capacity. Where each backend landed is in `stage/up.log`, which you show on slide 7.
 
@@ -29,6 +30,8 @@ cat results/2026-10-05/demo1-engine.txt
 ---
 
 #### Running Order
+
+`stage/present.py` steps through this table one slide at a time: talking points, the slide's link, the minutes planned against the clock, and the live command, with the recorded run one key away. `python3 stage/present.py --list` prints it all without running anything.
 
 | Slides | Section | Minutes | Live |
 |---|---|---|---|
