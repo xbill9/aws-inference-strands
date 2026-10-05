@@ -3,7 +3,7 @@ title: "Gemma 4 Inference on AWS: Bedrock, SageMaker, GPUs, Inferentia and Train
 published: false
 description: "A step by step survey of six ways to serve a model on AWS, from a managed API to your own Neuron chip, driven by one Strands agent and measured on the same day with the same prompts."
 tags: aws, ai, machinelearning, gemma
-cover_image: https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/devto-cover.24af28f8.jpg
+cover_image: https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/devto-cover.f3c999ed.jpg
 ---
 
 This article provides a step by step survey of LLM inference on AWS: Amazon Bedrock, a SageMaker real-time endpoint, vLLM on two EC2 GPU families, and a hand-ported Gemma 4 on AWS Inferentia2 and Trainium. A Strands agent drives all six backends, and every number below comes from two complete runs on the same day with the same prompts.
