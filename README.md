@@ -12,7 +12,7 @@ The Neuron builds take part in demo 2 only: the hand-ported server ignores tool 
 
 ## Bring the backends up
 
-`stage/` launches, reaches, checks and tears down every self-hosted backend. The talk's running order, with a live command for each section, is in [docs/DEMO-SCRIPT.md](docs/DEMO-SCRIPT.md).
+`stage/` launches, reaches, checks and tears down every self-hosted backend. The talk's running order, with a live command for each section, is in [docs/DEMO-SCRIPT.md](docs/DEMO-SCRIPT.md). The slides are [on Google Slides](https://docs.google.com/presentation/d/1Ax8KGF8T0EYffshY7WfUM61QcHmLk0q72EE7G_hIwgM/edit?usp=sharing).
 
 ```bash
 stage/up.sh 2>&1 | tee stage/up.log      # g6, inf2, trn1, g5g, SageMaker; starts billing
