@@ -1,0 +1,18 @@
+One Strands agent driving six ways to serve a model on AWS: Bedrock, a SageMaker endpoint, vLLM on EC2 g6 and g5g, and a hand-ported Gemma 4 on Inferentia2 and Trainium.
+Same prompts on every backend, graded and timed in code, two full runs on the same day.
+The same Inferentia2 image runs on Trainium unchanged. On the second run inf2 had no capacity in us-east-2 or us-east-1 and ran in us-west-2.
+https://github.com/xbill9/aws-inference-strands
+
+Builder Center Article is here:
+https://builder.aws.com/content/3KK6EIiUuiykdTUZig0Y21s2JM1/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent
+
+Medium is here:
+https://xbill999.medium.com/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-4fd7b2321add
+
+Dev.to is here:
+https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0
+
+Linked In is here:
+https://lnkd.in/p/g6_MJJZ9
+
+#AWS #Bedrock #SageMaker #Inferentia #Trainium #Gemma

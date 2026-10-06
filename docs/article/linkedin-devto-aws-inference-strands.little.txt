@@ -1,0 +1,15 @@
+Gemma 4 Inference on AWS: Bedrock, SageMaker, GPUs, Inferentia and Trainium Behind One Strands Agent
+
+A step by step survey of six ways to serve a model on AWS, from a managed API to your own Neuron chip, driven by one Strands agent and measured on the same day with the same prompts.
+
+What is in it:
+
+- 🟢 One Strands agent ran unchanged on Bedrock, vLLM on g6 and g5g, and SageMaker, 20 of 20 correct with the right filter on every backend.
+- 🟢 The Inferentia2 Gemma 4 image runs on Trainium without a rebuild, at 37.1 tok/s against Inferentia2's 36.4, and the 26B MoE build runs too.
+- 🟢 vLLM on a g6 decoded fastest, 131.5 tok/s for one request, and 132.45 in the second run.
+- 🟢 A second run from one script repeated the first: every self-hosted backend within 4% of its first-run speed, and identical text from the same stack, g6 with SageMaker and inf2 with trn1.
+
+dev.to \(Google Developer Experts\): https://dev.to/gde/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-2lnm
+dev.to \(AWS Community Builders\): https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0
+AWS Builder Center: https://builder.aws.com/content/3KK6EIiUuiykdTUZig0Y21s2JM1/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent
+Medium: https://xbill999.medium.com/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-4fd7b2321add
