@@ -1,5 +1,6 @@
 builder = https://builder.aws.com/content/3KK6EIiUuiykdTUZig0Y21s2JM1/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent
 medium = https://xbill999.medium.com/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-4fd7b2321add
+substack = https://xbill9.substack.com/p/gemma-4-inference-on-aws-bedrock
 devto-aws = https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0
 devto-gde = https://dev.to/gde/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-2lnm
 linkedin = https://lnkd.in/p/g6_MJJZ9
