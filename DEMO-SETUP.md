@@ -23,6 +23,8 @@ Local prerequisites: AWS CLI, the Session Manager plugin, and Python with `stran
 
 One full run through, about 45 minutes, tested exactly as it will be presented. Run everything from `~/aws-inference-strands`.
 
+`stage/rehearse.sh` does steps 1 to 5 and 7 in one command: it launches, waits for every instance to reach SSM, forwards, runs `check.py --wait`, runs every live command once into `results/rehearsal-<stamp>/`, and asks before tearing down. `stage/rehearse.sh g6 sm` rehearses a subset; `--keep` leaves it up for `present.py`; `--down` tears down without asking.
+
 1. Check the account and the login session: `aws sts get-caller-identity`.
 2. Launch the backends: `stage/up.sh 2>&1 | tee stage/up.log`. Every backend should report `launched` or `already up`. For a cheaper partial test, name a subset: `stage/up.sh g6 sm`.
 3. Wait about 25 minutes, then open the port forwards: `stage/forward.sh && source stage/demo.env`. Expect five SSM forwards plus SageMaker `InService`.
