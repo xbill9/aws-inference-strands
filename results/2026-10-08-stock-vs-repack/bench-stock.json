@@ -1,0 +1,97 @@
+{
+  "prompt": "Write a short paragraph about the ocean.",
+  "max_tokens": 100,
+  "summary": [
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "median_seconds": 2.148,
+      "median_tokens_per_second": 45.2,
+      "min_tps": 41.4,
+      "max_tps": 46.5,
+      "tokens": "97-97"
+    }
+  ],
+  "runs": [
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.144,
+      "tokens_per_second": 45.2
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.244,
+      "tokens_per_second": 43.2
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.209,
+      "tokens_per_second": 43.9
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.143,
+      "tokens_per_second": 45.3
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.132,
+      "tokens_per_second": 45.5
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.15,
+      "tokens_per_second": 45.1
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.084,
+      "tokens_per_second": 46.5
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.146,
+      "tokens_per_second": 45.2
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.17,
+      "tokens_per_second": 44.7
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean, a vast and enigmatic expanse, covers over seventy percent of our planet, a realm of breathtaking beauty and profound mystery. From the sun-drenched surface teeming with vibrant marine life to the crushing depths where undiscovered creatures thrive, it is a dynamic force that shapes our climate, regulates our ecosystems, and inspires awe in its endless depths. The rhythmic sound of its waves and the sheer scale of its power remind us of the immense, untamed beauty that surrounds us.",
+      "completion_tokens": 97,
+      "seconds": 2.343,
+      "tokens_per_second": 41.4
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "prompt": "Write a short paragraph about the ocean.",
+  "max_tokens": 100,
+  "summary": [
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "median_seconds": 0.777,
+      "median_tokens_per_second": 108.0,
+      "min_tps": 106.0,
+      "max_tps": 110.0,
+      "tokens": "84-84"
+    }
+  ],
+  "runs": [
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.785,
+      "tokens_per_second": 107.0
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.784,
+      "tokens_per_second": 107.1
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.768,
+      "tokens_per_second": 109.4
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.763,
+      "tokens_per_second": 110.0
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.777,
+      "tokens_per_second": 108.0
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.773,
+      "tokens_per_second": 108.6
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.793,
+      "tokens_per_second": 106.0
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.778,
+      "tokens_per_second": 107.9
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.768,
+      "tokens_per_second": 109.4
+    },
+    {
+      "backend": "sagemaker",
+      "label": "SageMaker endpoint (vLLM, L4)",
+      "text": "The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. It is a realm of breathtaking beauty, from the shimmering turquoise shallows teeming with vibrant coral reefs to the deep, inky trenches where unknown creatures dwell. The ocean is a powerful force, driving global weather patterns and holding the secrets of immense biodiversity, yet it remains an enigmatic entity, constantly shifting and endlessly captivating.",
+      "completion_tokens": 84,
+      "seconds": 0.777,
+      "tokens_per_second": 108.1
+    }
+  ]
+}

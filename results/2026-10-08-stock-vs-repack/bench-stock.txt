@@ -1,0 +1,4 @@
+Prompt: 'Write a short paragraph about the ocean.', max_tokens=100, 10 repeats per backend
+
+backend     median s  median tok/s  tok/s range     tokens
+sagemaker      2.148          45.2    41.4-46.5     97-97
