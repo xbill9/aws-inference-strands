@@ -38,13 +38,13 @@ cat results/2026-10-05/demo1-engine.txt
 | 1–3 | Title, About, Where to Find Me | 3 | |
 | 4–7 | One question, six ways; the six backends; precision; memory | 8 | |
 | 8–12 | Strategies | 8 | `cat stage/up.log` on slide 9 |
-| 13–15 | Managed: Bedrock, SageMaker | 6 | `ask.py bedrock`, `ask.py sagemaker` |
-| 16–20 | GPUs: g6, L4 specs, g5g, Arm + CUDA | 9.5 | `ask.py g6`, `ask.py g5g` |
-| 21–24 | Neuron: Inferentia2, Trainium, vLLM-Neuron | 8 | `ask.py inf2`, `ask.py trn1` |
-| 25–30 | Strands: model classes, demo 1, demo 2, bench, cost | 15 | four commands, about 75 s of runtime in all |
-| 31–34 | So, Which One?; clean up; links; questions | 10 | `stage/down.sh` after the talk |
+| 13–16 | Managed: Bedrock, SageMaker | 7.5 | `ask.py bedrock`, `ask.py sagemaker` |
+| 17–21 | GPUs: g6, L4 specs, g5g, Arm + CUDA | 9.5 | `ask.py g6`, `ask.py g5g` |
+| 22–25 | Neuron: Inferentia2, Trainium, vLLM-Neuron | 8 | `ask.py inf2`, `ask.py trn1` |
+| 26–31 | Strands: model classes, demo 1, demo 2, bench, cost | 15 | four commands, about 75 s of runtime in all |
+| 32–35 | So, Which One?; clean up; links; questions | 10 | `stage/down.sh` after the talk |
 
-That is 68 minutes with questions at the end. If you run long, cut the `ask.py` calls on slides 15 and 19: demo 2 hits every backend anyway.
+That is 69.5 minutes with questions at the end. If you run long, cut the `ask.py` calls on slides 16 and 20: demo 2 hits every backend anyway.
 
 ---
 
@@ -58,7 +58,7 @@ The log shows each zone that refused a launch and the region the instance landed
 
 ---
 
-#### Slides 14–23 — One Question per Backend
+#### Slides 14–24 — One Question per Backend
 
 ```bash
 python3 stage/ask.py bedrock
@@ -73,7 +73,7 @@ Each writes a short paragraph and prints the token count, the seconds and the to
 
 ---
 
-#### Slide 27 — Demo 1: Same Agent, Every Backend That Calls Tools
+#### Slide 28 — Demo 1: Same Agent, Every Backend That Calls Tools
 
 ```bash
 python3 demo1_counting.py --runs 3          # 15 s
@@ -91,7 +91,7 @@ Here the agent gets the raw ids and counts them itself. The point for the room: 
 
 ---
 
-#### Slide 28 — Demo 2: Right Table, Wrong Summary
+#### Slide 29 — Demo 2: Right Table, Wrong Summary
 
 ```bash
 python3 demo2_orchestrator.py                # 5 s
@@ -101,7 +101,7 @@ A Bedrock agent asks every backend through `ask_<name>` tools, then quotes `scor
 
 ---
 
-#### Slide 29 — Same Prompt, Every Backend
+#### Slide 30 — Same Prompt, Every Backend
 
 ```bash
 python3 bench_chat.py --repeats 3            # 33 s
