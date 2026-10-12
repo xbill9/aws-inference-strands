@@ -151,6 +151,68 @@ def ways():
     plt.close(fig)
     print(path)
 
+
+def precision():
+    """Slide 6: what fewer bits buy (memory), what they cost (quality), and where they run natively.
+
+    Memory: E2B weights in GPU memory per build, gemma4-dev gpu-vllm-mi300x-2b dtype sweep 2026-10-07
+    ("Model loading took", GiB). Quality: share of the 3,880-record suite read correctly on one TPU v5e,
+    gemma4-dev tpu-vllm-v5e1-2b-* READMEs, 2026-09-29. Native math: L4 and T4G from HARDWARE.md and
+    NVIDIA; NeuronCore-v2 from the AWS Neuron data-types and architecture pages.
+    """
+    fig = plt.figure(figsize=(16, 6.75), dpi=DPI, facecolor="white")
+    mem = [("bf16", 9.42), ("fp8", 7.07), ("int8", 7.07), ("int4", 6.32), ("int4 + tables", 2.85)]
+    qual = [("int8, from QAT weights", 0.686), ("bf16", 0.683), ("int4 + tables", 0.681),
+            ("int4, QAT", 0.678), ("fp8, from QAT weights", 0.670), ("int8, rounded from bf16", 0.670)]
+    chips = ["L4", "T4G", "Neuron"]
+    fmts = ["bf16", "fp8", "int8", "int4"]
+    grid = {"L4": ["yes", "yes", "yes", "widened"], "T4G": ["emulated", "no", "yes", "widened"],
+            "Neuron": ["yes", "pending", "yes", "widened"]}
+    color = {"yes": TEAL, "no": "#C0392B", "emulated": ORANGE, "widened": ORANGE, "pending": ORANGE}
+
+    ax = fig.add_axes([0.11, 0.30, 0.20, 0.56])
+    names, vals = [m[0] for m in mem][::-1], [m[1] for m in mem][::-1]
+    ax.barh(names, vals, color=[TEAL if v < 3 else NAVY for v in vals], height=0.6)
+    for i, v in enumerate(vals):
+        ax.text(v + 0.15, i, f"{v:g} GiB", va="center", fontsize=15, color=INK)
+    ax.set_xlim(0, 14), ax.tick_params(labelsize=15, length=0), ax.set_xticks([])
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title("Memory: E2B weights", fontsize=20, weight="bold", color=INK, loc="left")
+
+    ax = fig.add_axes([0.50, 0.30, 0.17, 0.56])
+    names, vals = [q[0] for q in qual][::-1], [q[1] for q in qual][::-1]
+    ax.hlines(range(len(vals)), 0.66, vals, color="#DDDDDD", lw=3)
+    ax.scatter(vals, range(len(vals)), s=180, color=[TEAL if v >= 0.678 else ORANGE for v in vals], zorder=3)
+    for i, v in enumerate(vals):
+        ax.text(v + 0.0018, i, f"{v:.3f}", va="center", fontsize=15, color=INK)
+    ax.set_yticks(range(len(names)), names), ax.set_xlim(0.66, 0.695), ax.set_xticks([])
+    ax.tick_params(labelsize=14, length=0)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title("Quality: suite accuracy", fontsize=20, weight="bold", color=INK, loc="left")
+
+    ax = fig.add_axes([0.77, 0.30, 0.21, 0.56])
+    ax.set_xlim(0, 4), ax.set_ylim(0, 3.6), ax.axis("off")
+    for j, f in enumerate(fmts):
+        ax.text(j + 0.5, 3.3, f, ha="center", va="center", fontsize=16, weight="bold", color=INK)
+    for i, c in enumerate(chips):
+        y = 2.5 - i
+        ax.text(-0.1, y, c, ha="right", va="center", fontsize=16, weight="bold", color=INK)
+        for j, v in enumerate(grid[c]):
+            ax.add_patch(FancyBboxPatch((j + 0.06, y - 0.38), 0.88, 0.76, boxstyle="round,pad=0,rounding_size=0.12",
+                                        fc=color[v], ec="none", alpha=0.9))
+            ax.text(j + 0.5, y, v, ha="center", va="center", fontsize=11 if len(v) > 7 else 12.5, weight="bold", color="white")
+    ax.set_title("Native math on the chip", fontsize=20, weight="bold", color=INK, loc="left")
+
+    for x, t in [(0.02, "Fewer bits: less memory,\ndisk and bandwidth"),
+                 (0.36, "int4 trained for it (QAT): within\nhalf a point of bf16"),
+                 (0.70, "Faster only where the chip\nmultiplies that format")]:
+        fig.text(x, 0.06, t, fontsize=17, color=INK, weight="bold", linespacing=1.3)
+    path = os.path.join(OUT, "precision.png")
+    fig.savefig(path, facecolor="white")
+    plt.close(fig)
+    print(path)
+
 if __name__ == "__main__":
     main()
     ways()
+    precision()
