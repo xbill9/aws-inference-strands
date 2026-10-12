@@ -51,7 +51,7 @@ Start 60 minutes before the talk. Capacity is the slow and uncertain step.
 | T-0 | `python3 stage/present.py` beside the deck, terminal font 20pt or larger | |
 | After | `stage/down.sh` | nothing left running |
 
-Keep `stage/up.log` from the day: slide 7 shows it.
+Keep `stage/up.log` from the day: slide 8 shows it.
 
 ---
 
@@ -73,8 +73,8 @@ Every demo has a recorded run in `results/2026-10-05/`, so a backend that dies o
 
 | Slide | Command | Shows | Run time |
 | --- | --- | --- | --- |
-| 12–21 | `python3 stage/ask.py <backend>` | a short answer with tokens, seconds and tokens per second | 0.9 to 3.0 s each |
-| 25 | `python3 demo1_counting.py --runs 3` | the agent calls `count_ids`, the engine counts; answer 8 | 15 s |
-| 25 | `python3 demo1_counting.py --runs 3 --tools rows` | the agent gets the raw ids and counts them itself | 18 s |
-| 26 | `python3 demo2_orchestrator.py` | a Bedrock agent asks every backend, then quotes a scoreboard sorted in code | 5 s |
-| 27 | `python3 bench_chat.py --repeats 3` | one 100-token prompt timed on every backend | 33 s |
+| 13–22 | `python3 stage/ask.py <backend>` | a short answer with tokens, seconds and tokens per second | 0.9 to 3.0 s each |
+| 26 | `python3 demo1_counting.py --runs 3` | the agent calls `count_ids`, the engine counts; answer 8 | 15 s |
+| 26 | `python3 demo1_counting.py --runs 3 --tools rows` | the agent gets the raw ids and counts them itself | 18 s |
+| 27 | `python3 demo2_orchestrator.py` | a Bedrock agent asks every backend, then quotes a scoreboard sorted in code | 5 s |
+| 28 | `python3 bench_chat.py --repeats 3` | one 100-token prompt timed on every backend | 33 s |
