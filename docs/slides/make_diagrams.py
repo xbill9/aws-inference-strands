@@ -115,5 +115,42 @@ def main():
     plt.close(fig)
     print(path)
 
+
+def ways():
+    """Slide 4: one agent, four ways to run a model, from managed to your own chip."""
+    w, h = 32, 13.2
+    fig = plt.figure(figsize=(16, 6.6), dpi=DPI, facecolor=BG)
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, w), ax.set_ylim(0, h), ax.axis("off")
+    ax.add_patch(FancyBboxPatch((10, 10.7), 12, 2.1, boxstyle="round,pad=0.02,rounding_size=0.35",
+                                fc=FILL["laptop"], ec=NAVY, lw=3))
+    ax.text(16, 12.05, "One Strands agent", ha="center", va="center", fontsize=26, weight="bold", color=INK)
+    ax.text(16, 11.25, "same question, graded in code", ha="center", va="center", fontsize=18, color=INK)
+    cols = [("Managed API", ["Amazon Bedrock", "Nova Micro, per token"]),
+            ("Managed endpoint", ["SageMaker", "ml.g6.xlarge, vLLM"]),
+            ("Your GPU", ["EC2 g6: NVIDIA L4", "EC2 g5g: Arm + T4G"]),
+            ("Your AWS chip", ["Inferentia2", "Trainium"])]
+    cw, gap, top, bot = 6.8, 1.0, 8.6, 3.4
+    for i, (head, lines) in enumerate(cols):
+        x = 1.2 + i * (cw + gap)
+        ax.add_patch(FancyBboxPatch((x, bot), cw, top - bot, boxstyle="round,pad=0.02,rounding_size=0.35",
+                                    fc=FILL["aws"], ec=NAVY, lw=3))
+        ax.add_patch(FancyBboxPatch((x, top - 1.6), cw, 1.6, boxstyle="round,pad=0.02,rounding_size=0.35",
+                                    fc=NAVY, ec=NAVY, lw=3))
+        ax.text(x + cw / 2, top - 0.8, head, ha="center", va="center", fontsize=22, weight="bold", color="white")
+        ax.text(x + cw / 2, top - 2.75, lines[0], ha="center", va="center", fontsize=20, weight="bold", color=INK)
+        ax.text(x + cw / 2, top - 4.0, lines[1], ha="center", va="center", fontsize=18,
+                weight="bold" if i >= 2 else "normal", color=INK)
+        ax.add_patch(FancyArrowPatch((16, 10.6), (x + cw / 2, top + 0.1), arrowstyle="-|>", mutation_scale=28,
+                                     lw=3, color=ORANGE))
+    ax.add_patch(FancyArrowPatch((1.2, 2.2), (30.8, 2.2), arrowstyle="-|>", mutation_scale=40, lw=5, color=TEAL))
+    ax.text(1.2, 1.0, "nothing to run, pay per token", ha="left", va="center", fontsize=19, color=INK)
+    ax.text(30.8, 1.0, "more control, more to run", ha="right", va="center", fontsize=19, color=INK)
+    path = os.path.join(OUT, "arch-ways.png")
+    fig.savefig(path, facecolor=BG)
+    plt.close(fig)
+    print(path)
+
 if __name__ == "__main__":
     main()
+    ways()
