@@ -3,7 +3,7 @@ title: "Inference on AWS: Precision, Memory and Six Backends Behind One Strands 
 published: false
 description: "The companion to the talk: what bits per weight, memory bandwidth and the serving engine do to Gemma 4 on Bedrock, SageMaker, EC2 g6 and g5g, Inferentia2 and Trainium, with the cost of each, measured on one day."
 tags: aws, ai, machinelearning, gemma
-cover_image: https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/slides/cover.b789ee70.jpg
+cover_image: https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/devto-companion-cover.5b16ff3b.jpg
 ---
 
 This article is the written companion to the talk "Inference on AWS". One Strands agent sends the same question to six AWS backends: Amazon Bedrock, a SageMaker endpoint, vLLM on EC2 g6 and g5g, and a hand-ported Gemma 4 on Inferentia2 and Trainium. The talk adds two ideas that explain most of the results: the precision a model is stored and computed in, and the memory bandwidth of the chip that serves it.
