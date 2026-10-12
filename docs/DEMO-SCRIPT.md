@@ -18,7 +18,7 @@ Deck: https://docs.google.com/presentation/d/1Ax8KGF8T0EYffshY7WfUM61QcHmLk0q72E
 | T-5 min | terminal font at 20pt or more, one pane, `clear` | |
 | T-0 | `python3 stage/present.py` beside the deck | one cue per slide; Enter runs that slide's command, `r` shows its recorded run |
 
-Measured launch to ready in the second run (`results/2026-10-05-stage/REPORT.md`): SageMaker 8.0 min, trn1 12.8 min, g6 13.9 min, inf2 17.9 min, g5g 23.7 min. The g5g's first start reads the weights from a fresh EBS volume. `up.sh` tries every zone and then the next region when one has no capacity. Where each backend landed is in `stage/up.log`, which you show on slide 8.
+Measured launch to ready in the second run (`results/2026-10-05-stage/REPORT.md`): SageMaker 8.0 min, trn1 12.8 min, g6 13.9 min, inf2 17.9 min, g5g 23.7 min. The g5g's first start reads the weights from a fresh EBS volume. `up.sh` tries every zone and then the next region when one has no capacity. Where each backend landed is in `stage/up.log`, which you show on slide 9.
 
 **Fallback.** Every demo has a recorded run in `results/2026-10-05/`. If a backend fails on stage, say so, `BACKENDS=` it out of the next command, and `cat` the recorded run.
 
@@ -36,19 +36,19 @@ cat results/2026-10-05/demo1-engine.txt
 | Slides | Section | Minutes | Live |
 |---|---|---|---|
 | 1–3 | Title, About, Where to Find Me | 3 | |
-| 4–6 | One question, six ways; the six backends; precision | 6 | |
-| 7–11 | Strategies | 8 | `cat stage/up.log` on slide 8 |
-| 12–14 | Managed: Bedrock, SageMaker | 6 | `ask.py bedrock`, `ask.py sagemaker` |
-| 15–19 | GPUs: g6, L4 specs, g5g, Arm + CUDA | 9.5 | `ask.py g6`, `ask.py g5g` |
-| 20–23 | Neuron: Inferentia2, Trainium, vLLM-Neuron | 8 | `ask.py inf2`, `ask.py trn1` |
-| 24–29 | Strands: model classes, demo 1, demo 2, bench, cost | 15 | four commands, about 75 s of runtime in all |
-| 30–33 | So, Which One?; clean up; links; questions | 10 | `stage/down.sh` after the talk |
+| 4–7 | One question, six ways; the six backends; precision; memory | 8 | |
+| 8–12 | Strategies | 8 | `cat stage/up.log` on slide 9 |
+| 13–15 | Managed: Bedrock, SageMaker | 6 | `ask.py bedrock`, `ask.py sagemaker` |
+| 16–20 | GPUs: g6, L4 specs, g5g, Arm + CUDA | 9.5 | `ask.py g6`, `ask.py g5g` |
+| 21–24 | Neuron: Inferentia2, Trainium, vLLM-Neuron | 8 | `ask.py inf2`, `ask.py trn1` |
+| 25–30 | Strands: model classes, demo 1, demo 2, bench, cost | 15 | four commands, about 75 s of runtime in all |
+| 31–34 | So, Which One?; clean up; links; questions | 10 | `stage/down.sh` after the talk |
 
-That is 65.5 minutes with questions at the end. If you run long, cut the `ask.py` calls on slides 14 and 18: demo 2 hits every backend anyway.
+That is 68 minutes with questions at the end. If you run long, cut the `ask.py` calls on slides 15 and 19: demo 2 hits every backend anyway.
 
 ---
 
-#### Slide 8 — Quota Does Not Mean Availability
+#### Slide 9 — Quota Does Not Mean Availability
 
 ```bash
 cat stage/up.log
@@ -58,7 +58,7 @@ The log shows each zone that refused a launch and the region the instance landed
 
 ---
 
-#### Slides 13–22 — One Question per Backend
+#### Slides 14–23 — One Question per Backend
 
 ```bash
 python3 stage/ask.py bedrock
@@ -73,7 +73,7 @@ Each writes a short paragraph and prints the token count, the seconds and the to
 
 ---
 
-#### Slide 26 — Demo 1: Same Agent, Every Backend That Calls Tools
+#### Slide 27 — Demo 1: Same Agent, Every Backend That Calls Tools
 
 ```bash
 python3 demo1_counting.py --runs 3          # 15 s
@@ -91,7 +91,7 @@ Here the agent gets the raw ids and counts them itself. The point for the room: 
 
 ---
 
-#### Slide 27 — Demo 2: Right Table, Wrong Summary
+#### Slide 28 — Demo 2: Right Table, Wrong Summary
 
 ```bash
 python3 demo2_orchestrator.py                # 5 s
@@ -101,7 +101,7 @@ A Bedrock agent asks every backend through `ask_<name>` tools, then quotes `scor
 
 ---
 
-#### Slide 28 — Same Prompt, Every Backend
+#### Slide 29 — Same Prompt, Every Backend
 
 ```bash
 python3 bench_chat.py --repeats 3            # 33 s
