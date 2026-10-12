@@ -1,0 +1,14 @@
+us-east-1: terminating i-0d20e4c651d93d173
+us-east-2: terminating i-088eb22729e0bb2ce	i-01ae6ce81a5cceb41	i-095444cd1e266afb1
+sm: destroying gemma-4-e2b-strands
+{
+  "endpoint": "gemma-4-e2b-strands",
+  "results": {
+    "endpoint": "deleted",
+    "endpoint-config": "deleted",
+    "model": "deleted"
+  }
+}
+
+Sweep (anything listed here is still billing):
+(sweep done)

@@ -1,0 +1,34 @@
+$ python3 /home/xbill/aws-inference-strands/stage/check.py --wait 1500
+Configured: bedrock, g6, g5g, sagemaker, inf2, trn1
+  14:39:05Z  PASS  bedrock    chat 0.851s; tool run filters=['id >= 10'] quoted=8 1.18s
+  14:39:05Z  FAIL  g6         chat failed: RemoteDisconnected: Remote end closed connection without response
+  14:39:05Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  14:39:09Z  PASS  sagemaker  chat 1.662s; tool run filters=['id >= 10'] quoted=8 0.71s
+  14:39:09Z  FAIL  inf2       chat failed: RemoteDisconnected: Remote end closed connection without response
+  14:40:30Z  FAIL  trn1       chat failed: HTTPError: HTTP Error 503: Service Unavailable
+  ... 4 not ready, retrying in 60 s
+  14:41:30Z  FAIL  g6         chat failed: RemoteDisconnected: Remote end closed connection without response
+  14:41:30Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  14:45:02Z  FAIL  inf2       chat failed: HTTPError: HTTP Error 503: Service Unavailable
+  14:45:03Z  PASS  trn1       chat 1.126s
+  ... 3 not ready, retrying in 60 s
+  14:46:05Z  PASS  g6         chat 1.273s; tool run filters=['id >= 10'] quoted=8 1.21s
+  14:46:05Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  14:46:06Z  PASS  inf2       chat 0.388s
+  ... 1 not ready, retrying in 60 s
+  14:47:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:48:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:49:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:50:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:51:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:52:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:53:06Z  FAIL  g5g        chat failed: RemoteDisconnected: Remote end closed connection without response
+  ... 1 not ready, retrying in 60 s
+  14:54:09Z  PASS  g5g        chat 0.279s; tool run filters=['id >= 10'] quoted=8 2.55s
+READY

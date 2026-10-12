@@ -7,6 +7,9 @@ Two demos for a survey of LLM inference on AWS: Amazon Bedrock, a SageMaker endp
 | `demo1_counting.py` | The same tool-using agent and question on each backend, graded on the answer **and** on the filter the model sent | Bedrock, vLLM on g6 and g5g, SageMaker |
 | `demo2_orchestrator.py` | A Bedrock agent that calls every backend as a tool and quotes a scoreboard computed in code | all six |
 | `bench_chat.py` | The same 100-token prompt on every backend, timed in code | all six |
+| `cost.py` | USD per hour and per million output tokens, from AWS Pricing API list prices and measured throughput; write-up in [docs/article/devto-aws-inference-cost.md](docs/article/devto-aws-inference-cost.md) | all six |
+
+`lightsail/` deploys the CPU-only EmbeddingGemma 2 repack from `~/embedding-cloudrun` on a Lightsail container service.
 
 The Neuron builds take part in demo 2 only: the hand-ported server ignores tool definitions and its prompt bucket holds 128 tokens, which a Strands agent's system prompt and tool schemas do not fit.
 

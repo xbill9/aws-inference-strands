@@ -1,0 +1,7 @@
+g6: localhost:8001 -> i-01ae6ce81a5cceb41:8000 (us-east-2)
+inf2: localhost:8002 -> i-095444cd1e266afb1:8080 (us-east-2)
+trn1: localhost:8003 -> i-088eb22729e0bb2ce:8080 (us-east-2)
+g5g: localhost:8004 -> i-0d20e4c651d93d173:8000 (us-east-1)
+sm: gemma-4-e2b-strands InService
+
+Wrote stage/demo.env. Next: source stage/demo.env && python3 stage/check.py

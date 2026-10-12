@@ -1,0 +1,5 @@
+$ python3 stage/ask.py sagemaker
+SageMaker endpoint (vLLM, L4)  (xbill9/gemma-4-E2B-it-qat-q4_0-w4a16-ct-text-emb4)
+Q: Write a short paragraph about the ocean.
+A: The ocean is a vast, mysterious expanse of water that covers more than seventy percent of our planet. Its depths hold a breathtaking diversity of life, from microscopic organisms to colossal whales, and its rhythmic tides have shaped coastlines and cultures for millennia. The ocean's power is evident in its crashing waves and deep currents, yet it also whispers of tranquility, offering a sense of endless possibility and a profound connection to the natural world.
+87 tokens in 1.298 s = 67.0 tok/s (timed here, network and prefill included)

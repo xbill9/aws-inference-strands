@@ -1,0 +1,12 @@
+{
+  "fetched": "2026-10-12T15:02:11+00:00",
+  "usd_per_hour": {
+    "g6": 0.8048,
+    "g5g": 0.556,
+    "inf2": 0.7582,
+    "trn1": 1.34375,
+    "sagemaker": 1.1267
+  },
+  "bedrock_usd_per_1k_input": 3.5e-05,
+  "bedrock_usd_per_1k_output": 0.00014
+}
