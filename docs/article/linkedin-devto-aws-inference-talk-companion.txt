@@ -1,0 +1,16 @@
+Inference on AWS: Precision, Memory and Six Backends Behind One Strands Agent
+
+The companion to the talk: what bits per weight, memory bandwidth and the serving engine do to Gemma 4 on Bedrock, SageMaker, EC2 g6 and g5g, Inferentia2 and Trainium, with the cost of each, measured on one day.
+
+What is in it:
+
+- 🟢 int4 from QAT weights stays within half a point of bf16, and int4 embedding tables shrink E2B from 6.32 GiB to 2.85 GiB.
+- 🟢 vLLM on a g6 decoded fastest, 131.9 tok/s for one request at $1.69 per million output tokens, $0.150 at 16 in parallel.
+- 🟢 Every tool-calling backend picked the right filter, 12 of 12 runs.
+- ⚠️ SageMaker adds about 0.24 s per request on the same GPU and costs about twice the g6 per token.
+
+dev.to (AWS Community Builders): https://dev.to/aws-builders/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent-51ak
+AWS Builder Center: https://builder.aws.com/content/3KbxICCLfTGLnEkLFs2CvlTonGb/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent
+Medium: https://xbill999.medium.com/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent-3802632b425d
+Substack: https://xbill9.substack.com/p/inference-on-aws-precision-memory
+Source: https://github.com/xbill9/aws-inference-strands

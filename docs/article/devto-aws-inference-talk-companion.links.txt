@@ -4,4 +4,4 @@ medium     = https://xbill999.medium.com/inference-on-aws-precision-memory-and-s
 builder    = https://builder.aws.com/content/3KbxICCLfTGLnEkLFs2CvlTonGb/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent
 substack   = https://xbill9.substack.com/p/inference-on-aws-precision-memory
 repo       = https://github.com/xbill9/aws-inference-strands
-linkedin   = PENDING
+linkedin   = https://www.linkedin.com/feed/update/urn:li:share:7515527244455288832/
