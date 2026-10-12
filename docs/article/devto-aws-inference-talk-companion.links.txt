@@ -1,0 +1,7 @@
+# Destination URLs for the LinkedIn, Slack and Advocu posts.
+devto-aws  = https://dev.to/aws-builders/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent-51ak
+medium     = https://xbill999.medium.com/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent-3802632b425d
+builder    = https://builder.aws.com/content/3KbxICCLfTGLnEkLFs2CvlTonGb/inference-on-aws-precision-memory-and-six-backends-behind-one-strands-agent
+substack   = https://xbill9.substack.com/p/inference-on-aws-precision-memory
+repo       = https://github.com/xbill9/aws-inference-strands
+linkedin   = PENDING
