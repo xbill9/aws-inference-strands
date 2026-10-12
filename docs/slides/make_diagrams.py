@@ -119,7 +119,7 @@ def main():
 def ways():
     """Slide 4: one agent, four ways to run a model, from managed to your own chip."""
     w, h = 32, 13.2
-    fig = plt.figure(figsize=(16, 6.6), dpi=DPI, facecolor=BG)
+    fig = plt.figure(figsize=(16, 6.6), dpi=DPI, facecolor="white")  # sits on a white card
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(0, w), ax.set_ylim(0, h), ax.axis("off")
     ax.add_patch(FancyBboxPatch((10, 10.7), 12, 2.1, boxstyle="round,pad=0.02,rounding_size=0.35",
@@ -147,7 +147,7 @@ def ways():
     ax.text(1.2, 1.0, "nothing to run, pay per token", ha="left", va="center", fontsize=19, color=INK)
     ax.text(30.8, 1.0, "more control, more to run", ha="right", va="center", fontsize=19, color=INK)
     path = os.path.join(OUT, "arch-ways.png")
-    fig.savefig(path, facecolor=BG)
+    fig.savefig(path, facecolor="white")
     plt.close(fig)
     print(path)
 
