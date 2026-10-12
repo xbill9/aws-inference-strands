@@ -212,7 +212,68 @@ def precision():
     plt.close(fig)
     print(path)
 
+
+def sagemaker():
+    """SageMaker intro slide: the three objects you create and what the endpoint runs for you.
+
+    From sagemaker-gemma/sm.py deploy(): create-model (image + SM_VLLM_* env + execution role),
+    create-endpoint-config (one variant, ml.g6.xlarge x 1), create-endpoint. The vLLM container
+    downloads the weights named by SM_VLLM_MODEL from Hugging Face at start-up.
+    """
+    w, h = 32, 13.5
+    fig = plt.figure(figsize=(16, 6.75), dpi=DPI, facecolor="white")
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, w), ax.set_ylim(0, h), ax.axis("off")
+
+    def rbox(x, y, bw, bh, fc, ec, lw=3, ls="-"):
+        ax.add_patch(FancyBboxPatch((x, y), bw, bh, boxstyle="round,pad=0.02,rounding_size=0.35",
+                                    fc=fc, ec=ec, lw=lw, ls=ls))
+
+    def label(x, y, t, size=20, bold=True, color=INK, ha="center"):
+        ax.text(x, y, t, ha=ha, va="center", fontsize=size, weight="bold" if bold else "normal", color=color)
+
+    # left: what you create
+    label(4.6, 12.6, "You create", 22)
+    for i, (t, sub) in enumerate([("Model", "vLLM container image\nSM_VLLM_* settings, IAM role"),
+                                  ("Endpoint config", "ml.g6.xlarge x 1"),
+                                  ("Endpoint", "a name you call")]):
+        y = 9.0 - i * 3.3
+        rbox(0.8, y, 7.6, 2.7, FILL["aws"], NAVY)
+        label(4.6, y + 1.9, t, 21)
+        label(4.6, y + 0.85, sub, 15, bold=False)
+    ax.add_patch(FancyArrowPatch((8.6, 6.4), (11.2, 6.4), arrowstyle="-|>", mutation_scale=34, lw=3.5, color=ORANGE))
+
+    # middle: what SageMaker runs
+    rbox(11.4, 1.0, 12.4, 11.0, "#F7F9FA", ORANGE, lw=3, ls=(0, (6, 4)))
+    label(17.6, 12.6, "SageMaker runs", 22)
+    rbox(12.4, 7.4, 10.4, 3.6, FILL["laptop"], NAVY)
+    label(17.6, 10.2, "ml.g6.xlarge instance", 20)
+    rbox(13.0, 7.9, 4.6, 1.6, FILL["path"], TEAL)
+    label(15.3, 8.7, "vLLM container", 15)
+    rbox(18.2, 7.9, 4.0, 1.6, FILL["chip"], NAVY)
+    label(20.2, 8.7, "NVIDIA L4", 15, color="white")
+    for i, t in enumerate(["health check before traffic", "logs and metrics in CloudWatch", "instance count you can scale"]):
+        label(12.8, 5.9 - i * 1.5, "\u2022  " + t, 16, bold=False, ha="left")
+
+    # right: client and weights
+    rbox(25.2, 8.6, 6.2, 2.8, FILL["laptop"], NAVY)
+    label(28.3, 10.4, "Strands agent", 19)
+    label(28.3, 9.4, "SageMakerAIModel", 15, bold=False)
+    ax.add_patch(FancyArrowPatch((25.1, 9.6), (22.9, 9.6), arrowstyle="-|>", mutation_scale=30, lw=3.5, color=ORANGE))
+    label(28.3, 7.6, "InvokeEndpoint, signed HTTPS", 14, bold=False)
+    rbox(25.2, 2.2, 6.2, 2.8, FILL["laptop"], NAVY)
+    label(28.3, 4.0, "Hugging Face", 19)
+    label(28.3, 3.0, "weights at start-up", 15, bold=False)
+    ax.add_patch(FancyArrowPatch((25.1, 3.6), (17.6, 7.3), arrowstyle="-|>", mutation_scale=30, lw=3, color=TEAL,
+                                 connectionstyle="arc3,rad=0.15"))
+
+    path = os.path.join(OUT, "sagemaker.png")
+    fig.savefig(path, facecolor="white")
+    plt.close(fig)
+    print(path)
+
 if __name__ == "__main__":
     main()
     ways()
     precision()
+    sagemaker()
