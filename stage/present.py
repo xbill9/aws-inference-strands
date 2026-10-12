@@ -4,7 +4,7 @@ Run it in the terminal you will show, next to the Google Slides deck:
 
     source stage/demo.env
     python3 stage/present.py              # from slide 1
-    python3 stage/present.py --start 21   # pick up at the Strands section
+    python3 stage/present.py --start 27   # pick up at the Strands section
     python3 stage/present.py --list       # print every cue and command, run nothing
 
 Keys (type the letter, then Enter):
@@ -14,7 +14,7 @@ Keys (type the letter, then Enter):
     s       skip the current command       l     show the slide's link again
     q       quit
 
-Each slide header shows its link (#slide=id.sl_NN) so the deck can be jumped to
+Each slide header shows its link (#slide=id.<object id>) so the deck can be jumped to
 from the terminal, the minutes planned so far, and the clock since slide 1. A
 command whose backend is not configured, or that exits non-zero, offers its
 recorded run from results/2026-10-05-stage/.
@@ -30,6 +30,19 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO)
 
 DECK = "https://docs.google.com/presentation/d/1Ax8KGF8T0EYffshY7WfUM61QcHmLk0q72EE7G_hIwgM/edit"
+# Google Slides object id of each slide, in deck order (slide N is SLIDE_IDS[N - 1]). Ids were
+# fixed when each slide was made, so they no longer follow the slide numbers.
+SLIDE_IDS = [
+    "sl_01", "sl_02", "sl_03", "sl_04", "sl_05", "sl_prec", "sl_mem", "sl_06",
+    "sl_07", "sl_08", "sl_09", "sl_10", "sl_11", "sl_12", "sl_smi", "sl_13",
+    "sl_14", "sl_15", "sl_l4", "sl_16", "sl_arm", "sl_17", "sl_18", "sl_19",
+    "sl_20", "sl_why", "sl_21", "sl_22", "sl_23", "sl_24", "sl_25", "sl_26",
+    "sl_27", "sl_28", "sl_29", "sl_30",
+]
+
+
+def link(n: int) -> str:
+    return f"{DECK}#slide=id.{SLIDE_IDS[n - 1]}"
 RECORDED = "results/2026-10-05-stage"
 BOLD, DIM, GREEN, YELLOW, RED, RESET = "\033[1m", "\033[2m", "\033[32m", "\033[33m", "\033[31m", "\033[0m"
 
@@ -196,7 +209,7 @@ def header(i: int, start: float) -> None:
     print("\n" + "─" * 72)
     print(f"{BOLD}Slide {n}/{len(CUES)}  {title}{RESET}   {DIM}{minutes:g} min{RESET}")
     print(f"{DIM}planned {planned:.1f} min · clock {elapsed:.1f} min · {RESET}{pace}")
-    print(f"{DIM}{DECK}#slide=id.sl_{n:02d}{RESET}")
+    print(f"{DIM}{link(n)}{RESET}")
     for line in notes:
         print(f"  • {line}")
     for c in cmds:
@@ -255,7 +268,7 @@ def main() -> int:
             step += 1
             continue
         if key == "l":
-            print(f"{DECK}#slide=id.sl_{CUES[i][0]:02d}")
+            print(link(CUES[i][0]))
             continue
         if key in ("", "n"):
             if i == len(CUES) - 1:
