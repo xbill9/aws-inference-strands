@@ -58,6 +58,7 @@ CUES = [
     (7, "Memory and Bandwidth Across AWS", 2.0,
      ["Decode reads every weight once per token, so memory bandwidth sets the ceiling on tokens per second.",
       "L4 300 GB/s, T4G 320 (277 measured), Inferentia2 ~817, Trainium ~613: Neuron has 2.0-2.7x the L4's bandwidth.",
+      "Neuron's 32 GB is 2 x 16 GiB, one per NeuronCore: a model splits across both cores or fits in 16 GiB.",
       "Yet the L4 decodes 3.6x faster: the engine (vLLM vs a hand port) decides how close you get to the ceiling."], []),
     (8, "Strategies", 0.5, ["Four habits that decided whether a run happened at all."], []),
     (9, "Quota Does Not Mean Availability", 2.5,
