@@ -1,0 +1,4 @@
+Companion to my Inference on AWS talk: what precision, memory bandwidth and the serving engine do to Gemma 4 on Bedrock, SageMaker, EC2 g6 and g5g, Inferentia2 and Trainium, with the cost of each.
+vLLM on a g6 decoded fastest at 131.9 tok/s for one request and $1.69 per million output tokens; Bedrock Nova Micro is cheaper per token below about 710 tok/s sustained.
+Inferentia2 and Trainium are 2 x 16 GiB, one pool per NeuronCore, and that shapes what fits.
+https://github.com/xbill9/aws-inference-strands
