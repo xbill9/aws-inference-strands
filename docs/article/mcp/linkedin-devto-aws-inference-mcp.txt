@@ -1,0 +1,15 @@
+One MCP Server for Six AWS Inference Backends: Bedrock, SageMaker, GPUs, Inferentia and Trainium
+
+A step by step look at the MCP server that runs a six-backend Gemma 4 demo on AWS: one Python file over the demo's own code, eight tools marked read-only, write or destructive, SSM Run Command instead of open ports, and an agent that counts through the server and gets the same grade as in-process tools.
+
+What is in it:
+
+- 🟢 Eight tools in one file over the demo's own code: the same chat_once and count functions the scripts call, and the same stage/up.sh and stage/down.sh.
+- 🟢 Every tool is marked read-only, write or destructive, and tools/list carries the marks to the client.
+- 🟢 Health checks and logs run on the instance through SSM Run Command, with no inbound rules and no port forwards; g6 passed 12.2 minutes after launch and inf2 20.4 minutes after.
+- 🟢 A launch, health checks, logs, requests and a teardown ran from one session, and list_backends read billing_now: 0 21 seconds after teardown.
+
+dev.to (AWS Community Builders): https://dev.to/aws-builders/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium-3edb
+AWS Builder Center: https://builder.aws.com/content/3Kdv0hDVwNfHkbUI7qXKGuzVOxH/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium
+Medium: https://medium.com/@xbill999/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium-1b8094c98fd6
+Substack: https://xbill9.substack.com/p/one-mcp-server-for-six-aws-inference
