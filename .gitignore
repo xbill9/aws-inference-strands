@@ -5,4 +5,5 @@ stage/demo.env
 stage/.forwards.pid
 stage/.fwd-*.log
 stage/up.log
+stage/down.log
 stage/.up.t0
