@@ -1,0 +1,28 @@
+== 02:13:14Z call backend_health {"backend": "g6"} -> ❌ AWS InvalidInstanceId: Instances not in a valid state for account
+== 02:13:15Z call backend_health {"backend": "inf2"} -> ❌ AWS InvalidInstanceId: Instances not in a valid state for account
+== 02:14:21Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000140
+== 02:14:24Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000262
+== 02:15:29Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000175
+== 02:15:32Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000184
+== 02:16:37Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000170
+== 02:16:40Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000191
+== 02:17:46Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000175
+== 02:17:49Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000145
+== 02:18:54Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000159
+== 02:18:57Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000146
+== 02:20:02Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000139
+== 02:20:05Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000216
+== 02:21:11Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.002271
+== 02:21:13Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000174
+== 02:22:19Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000335
+== 02:22:22Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000221
+== 02:23:27Z call backend_health {"backend": "g6"} -> ❌ RuntimeError: SSM Failed: 000 0.000489
+== 02:23:30Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 0.000180
+== 02:24:36Z call backend_health {"backend": "g6"} -> ✅ g6: answered 'Paris' in 1.21s, on i-005ebaee08f191e7a (us-east-2) via SSM
+== 02:26:11Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 90.000889
+== 02:27:25Z call backend_health {"backend": "g6"} -> ✅ g6: answered 'Paris' in 0.03s, on i-005ebaee08f191e7a (us-east-2) via SSM
+== 02:28:58Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 90.002003
+== 02:30:04Z call backend_health {"backend": "g6"} -> ✅ g6: answered 'Paris' in 0.02s, on i-005ebaee08f191e7a (us-east-2) via SSM
+== 02:31:35Z call backend_health {"backend": "inf2"} -> ❌ RuntimeError: SSM Failed: 000 90.002294
+== 02:32:41Z call backend_health {"backend": "g6"} -> ✅ g6: answered 'Paris' in 0.02s, on i-005ebaee08f191e7a (us-east-2) via SSM
+== 02:32:44Z call backend_health {"backend": "inf2"} -> ✅ inf2: answered 'Paris' in 0.27s, on i-0bf43d9b77b321ec3 (us-east-2) via SSM

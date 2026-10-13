@@ -1,0 +1,319 @@
+launch_backends called 2026-10-13T02:12:23Z with names [g6, inf2]; returned: started stage/up.sh g6 inf2 (pid 2362067); output in stage/up.log, read it with launch_log
+
+== 02:13:01Z call launch_log {}  0.09s
+strands-demo-g6: launched i-005ebaee08f191e7a	us-east-2a
+strands-demo-inf2: no capacity in us-east-2 (subnet-0b0f0d29473b0a624), trying the next zone
+strands-demo-inf2: launched i-0bf43d9b77b321ec3	us-east-2b
+
+Next: stage/forward.sh (once the instances are up), then: source stage/demo.env && python3 stage/check.py
+
+== 02:13:02Z call list_backends {}  1.03s
+{
+  "backends": [
+    {
+      "backend": "bedrock",
+      "where": "us-east-1 (managed)",
+      "state": "always on",
+      "ssm": "-"
+    },
+    {
+      "backend": "sagemaker",
+      "where": "us-east-2 endpoint gemma-4-e2b-strands",
+      "state": "not found",
+      "ssm": "-"
+    },
+    {
+      "backend": "inf2",
+      "where": "us-east-2 i-0bf43d9b77b321ec3 inf2.xlarge",
+      "state": "running",
+      "launched": "2026-10-13T02:12:40+00:00",
+      "ssm": "not registered"
+    },
+    {
+      "backend": "g6",
+      "where": "us-east-2 i-005ebaee08f191e7a g6.xlarge",
+      "state": "running",
+      "launched": "2026-10-13T02:12:35+00:00",
+      "ssm": "not registered"
+    },
+    {
+      "backend": "g5g",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "trn1",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    }
+  ],
+  "billing_now": 2,
+  "ec2_running": 2,
+  "sagemaker": "not found",
+  "ask_backend_configured": [
+    "bedrock",
+    "g6",
+    "g5g",
+    "sagemaker",
+    "inf2",
+    "trn1"
+  ]
+}
+
+== 02:13:03Z call backend_logs {"backend": "g6", "tail": 8}  0.77s
+❌ AWS InvalidInstanceId: Instances not in a valid state for account
+
+== 02:13:03Z call backend_logs {"backend": "inf2", "tail": 8}  0.68s
+❌ AWS InvalidInstanceId: Instances not in a valid state for account
+
+== 02:13:04Z call backend_health {"backend": "g6"}  0.64s
+❌ AWS InvalidInstanceId: Instances not in a valid state for account
+
+== 02:14:56Z call list_backends {}  0.98s
+{
+  "backends": [
+    {
+      "backend": "bedrock",
+      "where": "us-east-1 (managed)",
+      "state": "always on",
+      "ssm": "-"
+    },
+    {
+      "backend": "sagemaker",
+      "where": "us-east-2 endpoint gemma-4-e2b-strands",
+      "state": "not found",
+      "ssm": "-"
+    },
+    {
+      "backend": "inf2",
+      "where": "us-east-2 i-0bf43d9b77b321ec3 inf2.xlarge",
+      "state": "running",
+      "launched": "2026-10-13T02:12:40+00:00",
+      "ssm": "Online"
+    },
+    {
+      "backend": "g6",
+      "where": "us-east-2 i-005ebaee08f191e7a g6.xlarge",
+      "state": "running",
+      "launched": "2026-10-13T02:12:35+00:00",
+      "ssm": "Online"
+    },
+    {
+      "backend": "g5g",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "trn1",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    }
+  ],
+  "billing_now": 2,
+  "ec2_running": 2,
+  "sagemaker": "not found",
+  "ask_backend_configured": [
+    "bedrock",
+    "g6",
+    "g5g",
+    "sagemaker",
+    "inf2",
+    "trn1"
+  ]
+}
+
+== 02:14:59Z call backend_logs {"backend": "g6", "tail": 6}  2.93s
+g6 i-005ebaee08f191e7a (us-east-2)
+```
+Error response from daemon: No such container: vllm
+--- serving log not available yet; cloud-init:
+72a6c87f05fc: Download complete
+0b3b5bd92824: Pull complete
+70f87b6ed43e: Pull complete
+526d5438c009: Pull complete
+0db1731e65c7: Pull complete
+469e56fbf4cf: Pull complete
+```
+
+== 02:15:02Z call backend_logs {"backend": "inf2", "tail": 6}  2.78s
+inf2 i-0bf43d9b77b321ec3 (us-east-2)
+```
+Error response from daemon: No such container: gemma4-neuron
+--- serving log not available yet; cloud-init:
+54df95d5ff45: Download complete
+edffeba77df9: Download complete
+6268abfe9e38: Download complete
+3d7d584c2f13: Download complete
+b3d8d8ad9d01: Download complete
+1da9061508a2: Download complete
+```
+
+== 02:26:17Z call backend_logs {"backend": "g6", "tail": 6}  3.18s
+g6 i-005ebaee08f191e7a (us-east-2)
+```
+(APIServer pid=1) INFO:     Waiting for application startup.
+(APIServer pid=1) INFO:     Application startup complete.
+(EngineCore pid=108) WARNING 10-13 02:24:34 [jit_monitor.py:141] Triton kernel JIT compilation during inference: kernel_unified_attention. This causes a latency spike; consider extending warmup to cover this shape/config.
+(APIServer pid=1) INFO:     172.17.0.1:34422 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-13 02:24:45 [loggers.py:315] Engine 000: Avg prompt throughput: 2.1 tokens/s, Avg generation throughput: 0.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-13 02:24:55 [loggers.py:315] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+```
+
+== 02:26:20Z call backend_logs {"backend": "inf2", "tail": 6}  2.87s
+inf2 i-0bf43d9b77b321ec3 (us-east-2)
+```
+WARN: unmaterialized host buffer rotary_emb.full_attention_original_inv_freq -> zeros
+WARN: unmaterialized host buffer rotary_emb.sliding_attention_inv_freq -> zeros
+WARN: unmaterialized host buffer rotary_emb.sliding_attention_original_inv_freq -> zeros
+slim-loaded 5 tensors (5.53 GB) for host embeddings; peak RSS so far 1.15 GB
+loading neffs onto NeuronCores...
+HTTP listening on :8080 — /health=503 'loading' until ready; queue max=8, gen timeout 120.0s
+```
+
+== 02:33:24Z call list_backends {}  1.08s
+{
+  "backends": [
+    {
+      "backend": "bedrock",
+      "where": "us-east-1 (managed)",
+      "state": "always on",
+      "ssm": "-"
+    },
+    {
+      "backend": "sagemaker",
+      "where": "us-east-2 endpoint gemma-4-e2b-strands",
+      "state": "not found",
+      "ssm": "-"
+    },
+    {
+      "backend": "inf2",
+      "where": "us-east-2 i-0bf43d9b77b321ec3 inf2.xlarge",
+      "state": "running",
+      "launched": "2026-10-13T02:12:40+00:00",
+      "ssm": "Online"
+    },
+    {
+      "backend": "g6",
+      "where": "us-east-2 i-005ebaee08f191e7a g6.xlarge",
+      "state": "running",
+      "launched": "2026-10-13T02:12:35+00:00",
+      "ssm": "Online"
+    },
+    {
+      "backend": "g5g",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "trn1",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    }
+  ],
+  "billing_now": 2,
+  "ec2_running": 2,
+  "sagemaker": "not found",
+  "ask_backend_configured": [
+    "bedrock",
+    "g6",
+    "inf2"
+  ]
+}
+
+== 02:33:24Z call ask_backend {"backend": "g6", "prompt": "hello"}  0.15s
+{
+  "backend": "g6",
+  "label": "vLLM on EC2 g6 (L4)",
+  "text": "Hello! How can I help you today? \ud83d\ude0a",
+  "completion_tokens": 11,
+  "seconds": 0.14,
+  "tokens_per_second": 78.6
+}
+
+== 02:33:24Z call ask_backend {"backend": "inf2", "prompt": "hello"}  0.43s
+{
+  "backend": "inf2",
+  "label": "Inferentia2 (inf2, hand-ported)",
+  "text": "Hello! How can I help you today?",
+  "completion_tokens": 9,
+  "seconds": 0.423,
+  "tokens_per_second": 21.3
+}
+
+== 02:33:24Z call ask_backend {"backend": "trn1", "prompt": "hello"}  0.00s
+❌ trn1 is not configured here; configured: bedrock, g6, inf2. Run stage/forward.sh.
+
+== 02:33:27Z call backend_logs {"backend": "inf2", "tail": 4}  3.18s
+inf2 i-0bf43d9b77b321ec3 (us-east-2)
+```
+----------------------------------------
+READY in 473.8s — serving on :8080 (SLIM host, peak RSS 14.45 GB)
+[req] pt=21 ct=1 5.8tok/s 0.17s finish=stop
+[req] pt=10 ct=9 25.2tok/s 0.36s finish=stop
+```
+teardown called 2026-10-13T02:33:32Z; returned: started stage/down.sh  (pid 2367066); output in stage/down.log, read it with launch_log
+
+== 02:33:53Z call launch_log {"which": "down"}  0.08s
+us-east-2: terminating i-0bf43d9b77b321ec3	i-005ebaee08f191e7a
+
+Sweep (anything listed here is still billing):
+(sweep done)
+
+== 02:33:54Z call list_backends {}  0.70s
+{
+  "backends": [
+    {
+      "backend": "bedrock",
+      "where": "us-east-1 (managed)",
+      "state": "always on",
+      "ssm": "-"
+    },
+    {
+      "backend": "sagemaker",
+      "where": "us-east-2 endpoint gemma-4-e2b-strands",
+      "state": "not found",
+      "ssm": "-"
+    },
+    {
+      "backend": "g6",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "g5g",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "inf2",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "trn1",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    }
+  ],
+  "billing_now": 0,
+  "ec2_running": 0,
+  "sagemaker": "not found",
+  "ask_backend_configured": [
+    "bedrock",
+    "g6",
+    "inf2"
+  ]
+}
+
+== 02:34Z (after the sweep) DescribeInstances us-east-2, via the AWS MCP server
+[["i-0bf43d9b77b321ec3","shutting-down"],["i-005ebaee08f191e7a","shutting-down"]]

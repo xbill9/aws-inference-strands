@@ -1,0 +1,7 @@
+Arithmetic over timestamps in mcp-calls-live.txt and health-poll.txt (all UTC, 2026-10-13).
+launch_backends called            02:12:23
+g6 first backend_health pass      02:24:36  12.2 min after launch
+inf2 first backend_health pass    02:32:44  20.4 min after launch
+teardown called                   02:33:32  21.1 min after launch
+teardown sweep read back          02:33:53  21.5 min after launch
+health poll interval: about 1 min; first pass is an upper bound on time to ready, to within one poll

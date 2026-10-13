@@ -1,0 +1,35 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "protocolVersion": "2025-11-25",
+    "serverInfo": {
+      "name": "strands-demo",
+      "version": ""
+    }
+  }
+}
+{
+  "id": 2,
+  "tools": 8,
+  "teardown": {
+    "name": "teardown",
+    "title": "Tear down every demo backend",
+    "annotations": {
+      "destructiveHint": true
+    }
+  }
+}

@@ -1,0 +1,136 @@
+2026-10-13T01:57:15Z
+server: strands-demo   protocol 2025-11-25
+
+== tools/list: 8 tools
+list_backends    title='List demo backends' readOnly=True destructive=None idempotent=True params=[] required=[]
+backend_health   title="Check one backend's health" readOnly=True destructive=None idempotent=True params=['backend'] required=['backend']
+backend_logs     title="Tail a backend's serving log" readOnly=True destructive=None idempotent=True params=['backend', 'tail'] required=['backend']
+ask_backend      title='Ask a backend' readOnly=True destructive=None idempotent=True params=['backend', 'prompt', 'max_tokens'] required=['backend', 'prompt']
+count_ids        title='Count ids' readOnly=True destructive=None idempotent=True params=['op', 'value'] required=['op', 'value']
+launch_backends  title='Launch demo backends' readOnly=None destructive=False idempotent=None params=['names'] required=[]
+teardown         title='Tear down every demo backend' readOnly=None destructive=True idempotent=None params=[] required=[]
+launch_log       title='Read the launch or teardown log' readOnly=True destructive=None idempotent=True params=['which', 'tail'] required=[]
+
+== call list_backends {}  isError=False  0.78s
+{
+  "backends": [
+    {
+      "backend": "bedrock",
+      "where": "us-east-1 (managed)",
+      "state": "always on",
+      "ssm": "-"
+    },
+    {
+      "backend": "sagemaker",
+      "where": "us-east-2 endpoint gemma-4-e2b-strands",
+      "state": "not found",
+      "ssm": "-"
+    },
+    {
+      "backend": "g6",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "g5g",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "inf2",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    },
+    {
+      "backend": "trn1",
+      "where": "-",
+      "state": "not launched",
+      "ssm": "-"
+    }
+  ],
+  "billing_now": 0,
+  "ec2_running": 0,
+  "sagemaker": "not found",
+  "ask_backend_configured": [
+    "bedrock",
+    "g6",
+    "g5g",
+    "sagemaker",
+    "inf2",
+    "trn1"
+  ]
+}
+
+== call count_ids {"op": ">=", "value": 10}  isError=False  0.01s
+{
+  "where": "id >= 10",
+  "count": 8,
+  "min": 10,
+  "max": 23
+}
+
+== call count_ids {"op": ">", "value": 10}  isError=False  0.00s
+{
+  "where": "id > 10",
+  "count": 7,
+  "min": 11,
+  "max": 23
+}
+
+== call count_ids {"op": "=>", "value": 10}  isError=False  0.00s
+{
+  "error": "op must be one of ['<', '<=', '==', '>', '>=']"
+}
+
+== call ask_backend {"backend": "bedrock", "prompt": "hello"}  isError=False  0.55s
+{
+  "backend": "bedrock",
+  "label": "Amazon Bedrock",
+  "text": "Hello! How can I assist you today? Whether you have a question, need information, or just want to chat, I'm here to help.",
+  "completion_tokens": 32,
+  "seconds": 0.542,
+  "tokens_per_second": 59.1
+}
+
+== call ask_backend {"backend": "g6", "prompt": "hello"}  isError=False  0.02s
+❌ URLError: <urlopen error [Errno 111] Connection refused>
+
+== call backend_health {"backend": "bedrock"}  isError=False  0.37s
+✅ bedrock: answered 'Paris' in 0.36s, direct
+
+== call backend_health {"backend": "sagemaker"}  isError=False  0.26s
+❌ sagemaker: endpoint gemma-4-e2b-strands is not found
+
+== call backend_health {"backend": "g6"}  isError=False  0.54s
+❌ RuntimeError: no running strands-demo-g6 instance in us-east-2, us-east-1, us-west-2, us-west-1
+
+== call backend_health {"backend": "g5g"}  isError=False  0.42s
+❌ RuntimeError: no running strands-demo-g5g instance in us-east-2, us-east-1, us-west-2, us-west-1
+
+== call backend_health {"backend": "inf2"}  isError=False  0.40s
+❌ RuntimeError: no running strands-demo-inf2 instance in us-east-2, us-east-1, us-west-2, us-west-1
+
+== call backend_health {"backend": "trn1"}  isError=False  0.42s
+❌ RuntimeError: no running strands-demo-trn1 instance in us-east-2, us-east-1, us-west-2, us-west-1
+
+== call backend_health {"backend": "tpu"}  isError=False  0.00s
+❌ ValueError: backend must be one of bedrock, sagemaker, g6, g5g, inf2, trn1
+
+== call backend_logs {"backend": "g6", "tail": 20}  isError=False  0.44s
+❌ RuntimeError: no running strands-demo-g6 instance in us-east-2, us-east-1, us-west-2, us-west-1
+
+== call launch_log {"which": "up", "tail": 5}  isError=False  0.01s
+strands-demo-g6: no capacity in us-east-2 (subnet-0b0f0d29473b0a624), trying the next zone
+strands-demo-trn1: launched i-088eb22729e0bb2ce	us-east-2c
+strands-demo-g6: launched i-01ae6ce81a5cceb41	us-east-2b
+
+Next: stage/forward.sh (once the instances are up), then: source stage/demo.env && python3 stage/check.py
+
+== call launch_log {"which": "down"}  isError=False  0.00s
+stage/down.log does not exist yet
+
+== call launch_backends {"names": ["p5"]}  isError=False  0.00s
+❌ unknown backend(s) ['p5']; use g6 inf2 trn1 g5g sm
