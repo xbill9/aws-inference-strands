@@ -1,2 +1,3 @@
 devto-aws = https://dev.to/aws-builders/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium-3edb
 medium = https://medium.com/@xbill999/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium-1b8094c98fd6
+substack = https://xbill9.substack.com/p/one-mcp-server-for-six-aws-inference
