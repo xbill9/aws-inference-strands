@@ -6,6 +6,7 @@ Two demos for a survey of LLM inference on AWS: Amazon Bedrock, a SageMaker endp
 |---|---|---|
 | `demo1_counting.py` | The same tool-using agent and question on each backend, graded on the answer **and** on the filter the model sent | Bedrock, vLLM on g6 and g5g, SageMaker |
 | `demo2_orchestrator.py` | A Bedrock agent that calls every backend as a tool and quotes a scoreboard computed in code | all six |
+| `mcp_server.py` | An MCP server over the same backends: list, health check, logs, ask, launch, tear down, and demo 1's `count_ids` engine | all six |
 | `bench_chat.py` | The same 100-token prompt on every backend, timed in code | all six |
 | `cost.py` | USD per hour and per million output tokens, from AWS Pricing API list prices and measured throughput; write-up in [docs/article/devto-aws-inference-cost.md](docs/article/devto-aws-inference-cost.md) | all six |
 
@@ -67,9 +68,27 @@ vLLM returns tool calls only when started with them enabled:
 ```bash
 python3 demo1_counting.py                       # engine counts; 5 runs per backend
 python3 demo1_counting.py --tools rows          # the model counts the rows itself
+python3 demo1_counting.py --tools mcp           # count_ids served by mcp_server.py over MCP
 python3 demo1_counting.py --runs 20 --json results/demo1.json
 python3 demo2_orchestrator.py
 ```
+
+## MCP server
+
+`mcp_server.py` follows the per-rig servers in `~/gemma4-dev`: boto3 and SSM Run Command, no inbound ports, every tool annotated read-only, write or destructive. `.mcp.json` registers it for Claude Code as `strands-demo`; any MCP client can start it with `python3 mcp_server.py`.
+
+| Tool | Kind | What it does |
+|---|---|---|
+| `list_backends` | read-only | every instance tagged `ManagedBy=strands-demo-run` in the four US regions, its SSM ping, the SageMaker endpoint status, and how many are billing |
+| `backend_health` | read-only | asks one backend for the capital of France and passes only on Paris; the EC2 backends are asked on the box through SSM, so no forward is needed |
+| `backend_logs` | read-only | tails the vLLM or Neuron container log, or g5g's `vllm.service`, falling back to cloud-init |
+| `ask_backend` | read-only | one timed chat request, as `stage/ask.py`; uses the forwards in `stage/demo.env` |
+| `count_ids` | read-only | demo 1's engine: exact count, minimum and maximum for `id <op> value` |
+| `launch_log` | read-only | tails `stage/up.log` or `stage/down.log` |
+| `launch_backends` | write | runs `stage/up.sh` in the background; billing starts |
+| `teardown` | destructive | runs `stage/down.sh` in the background |
+
+Launch and teardown run the stage scripts, so both routes start and stop the same resources. With `--tools mcp`, demo 1 offers the agent only `count_ids` from this server and grades the calls it reads back from the agent's messages, so it is graded exactly as `--tools engine`.
 
 ## How the grading works
 
