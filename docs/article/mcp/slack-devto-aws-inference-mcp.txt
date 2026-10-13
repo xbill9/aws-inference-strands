@@ -1,0 +1,21 @@
+An MCP server that runs my six-backend Gemma 4 demo on AWS: list, launch, health-check, read logs, ask and tear down Bedrock, SageMaker, EC2 g6 and g5g, Inferentia2 and Trainium from one chat session.
+Eight tools in one Python file, each marked read-only, write or destructive; health checks and logs run on the instance through SSM Run Command, with no inbound ports.
+Live run: g6 answered 12.2 minutes after launch, inf2 20.4 minutes after, and billing read 0 twenty-one seconds after teardown.
+https://github.com/xbill9/aws-inference-strands
+
+Builder Center Article is here:
+https://builder.aws.com/content/3Kdv0hDVwNfHkbUI7qXKGuzVOxH/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium
+
+Medium is here:
+https://medium.com/@xbill999/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium-1b8094c98fd6
+
+Substack is here:
+https://xbill9.substack.com/p/one-mcp-server-for-six-aws-inference
+
+Dev.to is here:
+https://dev.to/aws-builders/one-mcp-server-for-six-aws-inference-backends-bedrock-sagemaker-gpus-inferentia-and-trainium-3edb
+
+Linked In is here:
+https://www.linkedin.com/feed/update/urn:li:share:7515775555875573763/
+
+#AWS #MCP #Bedrock #SageMaker #Inferentia #Trainium #StrandsAgents
