@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>One MCP Server for Six AWS Inference Backends: Bedrock, SageMaker, GPUs, Inferentia and Trainium</title>
+  <meta name="description" content="A step by step look at the MCP server that runs a six-backend Gemma 4 demo on AWS: one Python file over the demo&#x27;s own code, eight tools marked read-only, write or destructive, SSM Run Command instead of open ports, and an agent that counts through the server and gets the same grade as in-process tools." />
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+    body{font-family:-apple-system,'Segoe UI',Roboto,'Liberation Sans',Arial,sans-serif;
+         font-size:18px;line-height:1.58;max-width:42em;color:#242424;}
+    h1,h2,h3,h4{font-weight:700;line-height:1.25;margin-top:1.8em;}
+    h4{font-size:1.25em;}
+    img{max-width:100%;height:auto;display:block;margin:1.6em 0;}
+    pre{background:#f7f7f7;border:1px solid #e6e6e6;border-radius:4px;
+        padding:12px 14px;overflow-x:auto;font-size:14px;line-height:1.45;}
+    code{font-family:'Liberation Mono',Menlo,Consolas,monospace;}
+    :not(pre)>code{background:#f2f2f2;padding:1px 5px;border-radius:3px;font-size:.9em;}
+    blockquote{border-left:3px solid #ddd;margin-left:0;padding-left:1em;color:#555;}
+    hr{border:0;border-top:1px solid #e6e6e6;margin:2.4em 0;}
+  </style>
+</head>
+<body>
+<p>This article provides a step by step guide to the MCP server that
+operates a six-backend inference demo on AWS: Amazon Bedrock, a
+SageMaker endpoint, vLLM on EC2 g6 and g5g, and Gemma 4 on Inferentia2
+and Trainium. A suite of eight Python MCP tools lists, launches,
+health-checks, reads the logs of, asks, and tears down every backend
+from one chat session.</p>
+<figure><img src="https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/mcp/medium/img/devto-cover.75e9e51b.jpg" alt="One MCP Server for Six AWS Inference Backends: Bedrock, SageMaker, GPUs, Inferentia and Trainium" /></figure>
+<p><a
+href="https://github.com/xbill9/aws-inference-strands">https://github.com/xbill9/aws-inference-strands</a></p>
+<hr />
+<h4 id="what-is-the-problem">What Is the Problem?</h4>
+<p>The demo behind this server puts one Strands agent in front of six
+ways to serve a model on AWS. Running it means five billable resources
+in up to four regions, two of them on AWS Neuron chips, and none of the
+instances reachable from the internet.</p>
+<p>The repository already has shell scripts for all of it:
+<code>stage/up.sh</code>, <code>stage/forward.sh</code>,
+<code>stage/check.py</code>, <code>stage/ask.py</code> and
+<code>stage/down.sh</code>. Each one prints for a person at a
+terminal.</p>
+<p>The MCP server gives the same operations to an agent. It answers
+"what is running and what is billing", "is inf2 serving yet", "show me
+the vLLM log on g6" and "tear it all down" with tools whose arithmetic
+and checks run in code, and it serves demo 1's counting tool to a
+Strands agent over the protocol itself.</p>
+<hr />
+<h4 id="at-this-point-you-should-have">At This Point You Should
+Have…</h4>
+<ul>
+<li>An AWS account with the AWS CLI configured, and Bedrock model access
+for Amazon Nova Micro in us-east-1</li>
+<li>Python 3 (3.14.7 here) with <code>mcp</code>,
+<code>strands-agents[openai,sagemaker]</code> and <code>boto3</code>
+installed</li>
+<li>The instance profile and SSM-only security group
+<code>stage/up.sh</code> uses (it creates the security group on first
+use)</li>
+<li>Claude Code, or any MCP client that can start a stdio server</li>
+<li>The <a
+href="https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0">companion
+article</a> for how each backend is built</li>
+</ul>
+<hr />
+<h4 id="step-1--register-the-server">Step 1 — Register the Server</h4>
+<p>The server is one file, <code>mcp_server.py</code>, started over
+stdio. <code>.mcp.json</code> in the repository root registers it for
+Claude Code:</p>
+<pre class="json"><code>{
+  &quot;mcpServers&quot;: {
+    &quot;strands-demo&quot;: {
+      &quot;command&quot;: &quot;python3&quot;,
+      &quot;args&quot;: [&quot;mcp_server.py&quot;]
+    }
+  }
+}</code></pre>
+<p>Any MCP client can start it the same way. Three lines of JSON-RPC on
+stdin are enough to see what it offers:</p>
+<pre class="shell"><code>printf &#39;%s\n&#39; \
+  &#39;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;initialize&quot;,&quot;params&quot;:{&quot;protocolVersion&quot;:&quot;2025-11-25&quot;,&quot;capabilities&quot;:{},&quot;clientInfo&quot;:{&quot;name&quot;:&quot;printf&quot;,&quot;version&quot;:&quot;0&quot;}}}&#39; \
+  &#39;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;notifications/initialized&quot;}&#39; \
+  &#39;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;method&quot;:&quot;tools/list&quot;}&#39; \
+  | python3 mcp_server.py
+{
+  &quot;protocolVersion&quot;: &quot;2025-11-25&quot;,
+  &quot;capabilities&quot;: {&quot;tools&quot;: {&quot;listChanged&quot;: false}, &quot;prompts&quot;: {&quot;listChanged&quot;: false},
+                   &quot;resources&quot;: {&quot;listChanged&quot;: false, &quot;subscribe&quot;: false}, &quot;experimental&quot;: {}},
+  &quot;serverInfo&quot;: {&quot;name&quot;: &quot;strands-demo&quot;, &quot;version&quot;: &quot;&quot;}
+}</code></pre>
+<p>The server runs on the MCP Python SDK 2.1.1 and its
+<code>MCPServer</code> class, and negotiates protocol version
+<code>2025-11-25</code>. <code>tools/list</code> returns eight
+tools.</p>
+<hr />
+<h4 id="step-2--one-file-over-the-demos-own-code">Step 2 — One File Over
+the Demo's Own Code</h4>
+<p>The server imports the two modules the demos already use and adds AWS
+calls around them.</p>
+<p><img src="https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/mcp/medium/img/devto-aws-inference-mcp-diagram-1.png"
+alt="diagram" /></p>
+<p>Four design rules hold the file together:</p>
+<ul>
+<li><strong>Reuse, then wrap.</strong> <code>ask_backend</code> calls
+<code>backends.chat_once</code>, the function <code>stage/ask.py</code>,
+<code>stage/check.py</code>, the benchmark and demo 2 call.
+<code>count_ids</code> calls <code>demo1_counting.count</code>, the
+function the in-process tool calls. A number from the server and a
+number from the scripts come from the same line of code.</li>
+<li><strong>Launch and teardown run the stage scripts.</strong>
+<code>launch_backends</code> starts <code>stage/up.sh</code> and
+<code>teardown</code> starts <code>stage/down.sh</code>, so the MCP
+route and the documented route create and destroy the same
+resources.</li>
+<li><strong>No inbound ports.</strong> Every instance sits in a security
+group with no inbound rules. Tools that need the box run a shell command
+on it through SSM Run Command.</li>
+<li><strong>The tag is the inventory.</strong> <code>stage/up.sh</code>
+tags every instance <code>ManagedBy=strands-demo-run</code>, and every
+lookup in the server filters on that tag across <code>us-east-2</code>,
+<code>us-east-1</code>, <code>us-west-2</code> and
+<code>us-west-1</code>. A backend that fell over to another region on a
+capacity error is still found.</li>
+</ul>
+<p>boto3 is synchronous, so each call runs in a worker thread through
+<code>asyncio.to_thread</code>. That lets one tool ask four regions at
+once with <code>asyncio.gather</code>:</p>
+<pre class="python"><code>async def _instances() -&gt; list[dict]:
+    per_region = await asyncio.gather(*[_region_instances(r) for r in REGIONS])
+    return [i for found in per_region for i in found]</code></pre>
+<hr />
+<h4 id="step-3--read-only-write-and-destructive">Step 3 — Read-Only,
+Write and Destructive</h4>
+<p>Every tool carries MCP tool annotations, so a client can tell an
+inventory call from one that bills or one that deletes before it calls
+anything.</p>
+<pre class="python"><code>READ_ONLY = ToolAnnotations(readOnlyHint=True, idempotentHint=True)
+WRITE = ToolAnnotations(destructiveHint=False)
+DESTRUCTIVE = ToolAnnotations(destructiveHint=True)</code></pre>
+<p>What <code>tools/list</code> returns, read back through the MCP
+client:</p>
+<p><img src="https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/mcp/medium/img/devto-aws-inference-mcp-table-1.png"
+alt="Table: Tool, Annotation, Arguments, What it touches" /></p>
+<p>The rest of this article takes the tools in the order a demo day uses
+them.</p>
+<hr />
+<h4 id="step-4--list_backends-what-is-running-and-what-is-billing">Step
+4 — <code>list_backends</code>: What Is Running and What Is Billing</h4>
+<p><code>list_backends</code> searches the four regions for tagged
+instances, asks SSM whether each running one has checked in, asks
+SageMaker for the endpoint's status, and adds up what is billing. The
+counts are computed in the tool, so the agent quotes them.</p>
+<p>With nothing launched:</p>
+<pre class="json"><code>{
+  &quot;backends&quot;: [
+    {&quot;backend&quot;: &quot;bedrock&quot;, &quot;where&quot;: &quot;us-east-1 (managed)&quot;, &quot;state&quot;: &quot;always on&quot;, &quot;ssm&quot;: &quot;-&quot;},
+    {&quot;backend&quot;: &quot;sagemaker&quot;, &quot;where&quot;: &quot;us-east-2 endpoint gemma-4-e2b-strands&quot;, &quot;state&quot;: &quot;not found&quot;, &quot;ssm&quot;: &quot;-&quot;},
+    {&quot;backend&quot;: &quot;g6&quot;, &quot;where&quot;: &quot;-&quot;, &quot;state&quot;: &quot;not launched&quot;, &quot;ssm&quot;: &quot;-&quot;},
+    {&quot;backend&quot;: &quot;g5g&quot;, &quot;where&quot;: &quot;-&quot;, &quot;state&quot;: &quot;not launched&quot;, &quot;ssm&quot;: &quot;-&quot;},
+    {&quot;backend&quot;: &quot;inf2&quot;, &quot;where&quot;: &quot;-&quot;, &quot;state&quot;: &quot;not launched&quot;, &quot;ssm&quot;: &quot;-&quot;},
+    {&quot;backend&quot;: &quot;trn1&quot;, &quot;where&quot;: &quot;-&quot;, &quot;state&quot;: &quot;not launched&quot;, &quot;ssm&quot;: &quot;-&quot;}
+  ],
+  &quot;billing_now&quot;: 0,
+  &quot;ec2_running&quot;: 0,
+  &quot;sagemaker&quot;: &quot;not found&quot;,
+  &quot;ask_backend_configured&quot;: [&quot;bedrock&quot;, &quot;g6&quot;, &quot;g5g&quot;, &quot;sagemaker&quot;, &quot;inf2&quot;, &quot;trn1&quot;]
+}</code></pre>
+<p>One call took 0.78 seconds for five AWS describe calls: one per
+region for EC2 and one for SageMaker. Each running instance adds an SSM
+call.</p>
+<p><code>ask_backend_configured</code> lists all six backends while five
+are down. It names every backend with a URL in <code>demo.env</code>,
+the file <code>stage/forward.sh</code> writes into the
+<code>stage</code> directory, and that file outlives the forwards. The
+tool's description says so, and Step 8 shows what a call to one of those
+backends returns.</p>
+<hr />
+<h4
+id="step-5--launch_backends-and-launch_log-start-billing-then-read-the-launch">Step
+5 — <code>launch_backends</code> and <code>launch_log</code>: Start
+Billing, Then Read the Launch</h4>
+<p><code>launch_backends</code> takes any of <code>g6</code>,
+<code>inf2</code>, <code>trn1</code>, <code>g5g</code> and
+<code>sm</code>, checks the names, and starts <code>stage/up.sh</code>
+with them in the background:</p>
+<pre class="plaintext"><code>launch_backends {&quot;names&quot;: [&quot;g6&quot;, &quot;inf2&quot;]}
+started stage/up.sh g6 inf2 (pid 2362067); output in stage/up.log, read it with launch_log</code></pre>
+<p>The call returns at once. The script picks an AMI, tries each zone in
+turn, then the next region, and writes what it did to
+<code>stage/up.log</code>. <code>launch_log</code> reads the log:</p>
+<pre class="plaintext"><code>strands-demo-g6: launched i-005ebaee08f191e7a   us-east-2a
+strands-demo-inf2: no capacity in us-east-2 (subnet-0b0f0d29473b0a624), trying the next zone
+strands-demo-inf2: launched i-0bf43d9b77b321ec3 us-east-2b
+ 
+Next: stage/forward.sh (once the instances are up), then: source stage/demo.env &amp;&amp; python3 stage/check.py</code></pre>
+<p>inf2 had no capacity in the first zone and launched in the second.
+Half a minute later <code>list_backends</code> showed both instances
+running and billing, before either had registered with SSM:</p>
+<pre class="json"><code>{&quot;backend&quot;: &quot;inf2&quot;, &quot;where&quot;: &quot;us-east-2 i-0bf43d9b77b321ec3 inf2.xlarge&quot;, &quot;state&quot;: &quot;running&quot;, &quot;ssm&quot;: &quot;not registered&quot;},
+{&quot;backend&quot;: &quot;g6&quot;,   &quot;where&quot;: &quot;us-east-2 i-005ebaee08f191e7a g6.xlarge&quot;,   &quot;state&quot;: &quot;running&quot;, &quot;ssm&quot;: &quot;not registered&quot;},
+...
+&quot;billing_now&quot;: 2,
+&quot;ec2_running&quot;: 2</code></pre>
+<hr />
+<hr />
+<h4 id="step-6--backend_health-ask-on-the-box">Step 6 —
+<code>backend_health</code>: Ask on the Box</h4>
+<p>For the four EC2 backends, <code>backend_health</code> finds the
+instance by tag and sends one shell command through SSM Run Command. The
+command runs <code>curl</code> against the server's port on the instance
+and prints the HTTP code, the time and the body:</p>
+<pre class="python"><code>cmd = (f&quot;curl -s -m 90 -o /tmp/strands-health.json -w &#39;%{{http_code}} %{{time_total}}&#39; &quot;
+       f&quot;-H &#39;content-type: application/json&#39; -d {shlex.quote(body)} &quot;
+       f&quot;http://localhost:{box[&#39;port&#39;]}/v1/chat/completions; echo; cat /tmp/strands-health.json&quot;)</code></pre>
+<p>The request never leaves the instance, so the check needs no port
+forward and no inbound rule. Bedrock and SageMaker are called directly.
+SageMaker is checked for <code>InService</code> first.</p>
+<p>Polled once a minute from launch, the replies trace each instance
+coming up:</p>
+<pre class="plaintext"><code>02:13:14Z g6   -&gt; ❌ AWS InvalidInstanceId: Instances not in a valid state for account
+02:14:21Z g6   -&gt; ❌ RuntimeError: SSM Failed: 000 0.000140
+...
+02:24:36Z g6   -&gt; ✅ g6: answered &#39;Paris&#39; in 1.21s, on i-005ebaee08f191e7a (us-east-2) via SSM
+02:26:11Z inf2 -&gt; ❌ RuntimeError: SSM Failed: 000 90.000889
+...
+02:32:44Z inf2 -&gt; ✅ inf2: answered &#39;Paris&#39; in 0.27s, on i-0bf43d9b77b321ec3 (us-east-2) via SSM</code></pre>
+<p>Each failure names a different stage:</p>
+<p><img src="https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/mcp/medium/img/devto-aws-inference-mcp-table-2.png"
+alt="Table: Reply, Meaning" /></p>
+<p>The 90-second replies came from inf2 only. Its server opens port 8080
+while it still loads the compiled model onto the NeuronCores, and holds
+requests until it is ready.</p>
+<p>g6 first passed 12.2 minutes after the launch call and inf2 20.4
+minutes after it, with the checks a minute apart. g6's first answer took
+1.21 seconds and the next three took 0.02 to 0.03 seconds.</p>
+<hr />
+<hr />
+<h4 id="step-7--backend_logs-the-serving-log-without-a-shell">Step 7 —
+<code>backend_logs</code>: The Serving Log Without a Shell</h4>
+<p><code>backend_logs</code> runs the right log command for each backend
+through SSM: <code>docker logs</code> for the vLLM container on g6 and
+the Neuron container on inf2 and trn1,
+<code>journalctl -u vllm.service</code> on g5g. Until the container
+exists it falls back to the cloud-init log, which shows the image
+pull:</p>
+<pre class="plaintext"><code>g6 i-005ebaee08f191e7a (us-east-2)
+Error response from daemon: No such container: vllm
+--- serving log not available yet; cloud-init:
+...
+469e56fbf4cf: Pull complete</code></pre>
+<p>Two minutes after g6's first health check passed, the same call
+returned vLLM's own log, with the health check's request in it:</p>
+<pre class="plaintext"><code>(APIServer pid=1) INFO:     Application startup complete.
+(EngineCore pid=108) WARNING 10-13 02:24:34 [jit_monitor.py:141] Triton kernel JIT compilation during inference: kernel_unified_attention. This causes a latency spike; consider extending warmup to cover this shape/config.
+(APIServer pid=1) INFO:     172.17.0.1:34422 - &quot;POST /v1/chat/completions HTTP/1.1&quot; 200 OK</code></pre>
+<p>The JIT warning matches the 1.21-second first answer. On inf2 the log
+showed the load in progress, then the result:</p>
+<pre class="plaintext"><code>HTTP listening on :8080 — /health=503 &#39;loading&#39; until ready; queue max=8, gen timeout 120.0s
+...
+READY in 473.8s — serving on :8080 (SLIM host, peak RSS 14.45 GB)
+[req] pt=21 ct=1 5.8tok/s 0.17s finish=stop</code></pre>
+<p>The first line explains the 90-second health check replies: the port
+opened before the model was ready.</p>
+<hr />
+<hr />
+<h4 id="step-8--ask_backend-one-timed-request">Step 8 —
+<code>ask_backend</code>: One Timed Request</h4>
+<p><code>ask_backend</code> sends one chat request through
+<code>backends.chat_once</code> and returns the text, the backend's own
+completion token count, and the time measured in the server. Tokens per
+second is that count over that time, so it includes the network and the
+prompt processing. Self-hosted backends are reached through the SSM port
+forwards <code>stage/forward.sh</code> opens.</p>
+<p>Before the forwards, with <code>demo.env</code> left over from an
+earlier session:</p>
+<pre class="plaintext"><code>ask_backend {&quot;backend&quot;: &quot;g6&quot;, &quot;prompt&quot;: &quot;hello&quot;}
+❌ URLError: &lt;urlopen error [Errno 111] Connection refused&gt;</code></pre>
+<p>After <code>stage/forward.sh</code> rewrote <code>demo.env</code>, a
+new server process read it at start-up:</p>
+<pre class="json"><code>{&quot;backend&quot;: &quot;g6&quot;,   &quot;label&quot;: &quot;vLLM on EC2 g6 (L4)&quot;,            &quot;text&quot;: &quot;Hello! How can I help you today? 😊&quot;,
+ &quot;completion_tokens&quot;: 11, &quot;seconds&quot;: 0.14,  &quot;tokens_per_second&quot;: 78.6}
+{&quot;backend&quot;: &quot;inf2&quot;, &quot;label&quot;: &quot;Inferentia2 (inf2, hand-ported)&quot;, &quot;text&quot;: &quot;Hello! How can I help you today?&quot;,
+ &quot;completion_tokens&quot;: 9,  &quot;seconds&quot;: 0.423, &quot;tokens_per_second&quot;: 21.3}
+ask_backend {&quot;backend&quot;: &quot;trn1&quot;, &quot;prompt&quot;: &quot;hello&quot;}
+❌ trn1 is not configured here; configured: bedrock, g6, inf2. Run stage/forward.sh.</code></pre>
+<p><code>list_backends</code> now reported
+<code>ask_backend_configured: ["bedrock", "g6", "inf2"]</code> and both
+instances <code>Online</code> in SSM. Replies this short are mostly
+prompt processing and network, so these rates describe one request each;
+the <a
+href="https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0">companion
+article</a> has the 100-token benchmark.</p>
+<hr />
+<h4 id="step-9--count_ids-demo-1s-engine-over-mcp">Step 9 —
+<code>count_ids</code>: Demo 1's Engine Over MCP</h4>
+<p>Demo 1 asks how many of eleven ids are 10 or more. The answer is 8.
+<code>count_ids</code> takes a predicate and returns the exact count,
+minimum and maximum, and echoes the predicate it ran:</p>
+<pre class="plaintext"><code>count_ids {&quot;op&quot;: &quot;&gt;=&quot;, &quot;value&quot;: 10}  -&gt;  {&quot;where&quot;: &quot;id &gt;= 10&quot;, &quot;count&quot;: 8, &quot;min&quot;: 10, &quot;max&quot;: 23}
+count_ids {&quot;op&quot;: &quot;&gt;&quot;,  &quot;value&quot;: 10}  -&gt;  {&quot;where&quot;: &quot;id &gt; 10&quot;,  &quot;count&quot;: 7, &quot;min&quot;: 11, &quot;max&quot;: 23}
+count_ids {&quot;op&quot;: &quot;=&gt;&quot;, &quot;value&quot;: 10}  -&gt;  {&quot;error&quot;: &quot;op must be one of [&#39;&lt;&#39;, &#39;&lt;=&#39;, &#39;==&#39;, &#39;&gt;&#39;, &#39;&gt;=&#39;]&quot;}</code></pre>
+<p>The second line returns an exact, sourced 7 for a predicate the
+question did not ask for. The <code>where</code> field is in the
+response so the predicate can be checked along with the number.</p>
+<p><code>demo1_counting.py --tools mcp</code> offers this tool to a
+Strands agent through the protocol. Strands' <code>MCPClient</code>
+starts the server over stdio and a tool filter exposes
+<code>count_ids</code> alone:</p>
+<pre class="python"><code>MCPClient(lambda: stdio_client(StdioServerParameters(command=sys.executable, args=[server])),
+          tool_filters={&quot;allowed&quot;: [&quot;count_ids&quot;]})</code></pre>
+<p>The tool runs in the server's process, so the demo cannot record
+calls as they happen. It reads them back from the agent's conversation
+instead, and grades them with the same function the in-process run
+uses:</p>
+<pre class="python"><code>def calls_from(messages: list) -&gt; list:
+    return [{&quot;tool&quot;: c[&quot;toolUse&quot;][&quot;name&quot;], **c[&quot;toolUse&quot;].get(&quot;input&quot;, {})}
+            for m in messages if m[&quot;role&quot;] == &quot;assistant&quot; for c in m[&quot;content&quot;] if &quot;toolUse&quot; in c]</code></pre>
+<p>Twenty runs each on Bedrock, the in-process tool and then the MCP
+tool:</p>
+<pre class="shell"><code>BACKENDS=bedrock python3 demo1_counting.py --tools engine --runs 20
+BACKENDS=bedrock python3 demo1_counting.py --tools mcp --runs 20
+True answer: 8  tools: engine
+...
+backend     runs  correct  right-filter  errors  median s  filters sent
+bedrock       20   20/20          20/20       0      1.07  id &gt;= 10
+ 
+True answer: 8  tools: mcp
+...
+backend     runs  correct  right-filter  errors  median s  filters sent
+bedrock       20   20/20          20/20       0      1.07  id &gt;= 10</code></pre>
+<p>Same answers, same filter, same median time. Starting the server
+costs once per demo run, outside the timed agent calls.</p>
+<hr />
+<h4 id="step-10--teardown-stop-everything-that-bills">Step 10 —
+<code>teardown</code>: Stop Everything That Bills</h4>
+<p><code>teardown</code> takes no arguments and starts
+<code>stage/down.sh</code> in the background. It is the one tool marked
+destructive. The script closes the forwards, terminates every instance
+tagged <code>ManagedBy=strands-demo-run</code> in all four regions,
+deletes the SageMaker endpoint when it exists, and then lists anything
+still running in any of the four regions.</p>
+<pre class="plaintext"><code>teardown {}
+started stage/down.sh  (pid 2367066); output in stage/down.log, read it with launch_log</code></pre>
+<p>Twenty-one seconds later, <code>launch_log</code> with
+<code>which</code> set to <code>down</code>:</p>
+<pre class="plaintext"><code>us-east-2: terminating i-0bf43d9b77b321ec3  i-005ebaee08f191e7a
+ 
+Sweep (anything listed here is still billing):
+(sweep done)</code></pre>
+<p>and <code>list_backends</code>:</p>
+<pre class="plaintext"><code>&quot;billing_now&quot;: 0,
+&quot;ec2_running&quot;: 0,
+&quot;sagemaker&quot;: &quot;not found&quot;</code></pre>
+<p>The sweep and the inventory both read empty while the two instances
+were still in <code>shutting-down</code>, because both look only at
+pending, running, stopping and stopped instances.</p>
+<hr />
+<h4 id="mag_right-tip-return-the-error-as-text-the-agent-can-read">🔎
+Tip: Return the Error as Text the Agent Can Read</h4>
+<p>Every tool catches its exceptions and returns one line that starts
+with ❌ and names the cause: an AWS error code and message, a
+<code>ValueError</code> for a bad backend name, a
+<code>RuntimeError</code> naming the four regions searched.</p>
+<pre class="plaintext"><code>backend_health {&quot;backend&quot;: &quot;tpu&quot;}  -&gt;  ❌ ValueError: backend must be one of bedrock, sagemaker, g6, g5g, inf2, trn1
+launch_backends {&quot;names&quot;: [&quot;p5&quot;]}  -&gt;  ❌ unknown backend(s) [&#39;p5&#39;]; use g6 inf2 trn1 g5g sm</code></pre>
+<p>An agent reads the cause in the reply. The protocol-level
+<code>isError</code> flag stays <code>false</code> on all of them, so a
+client that branches on that flag treats a failed health check as a
+success. Set it where clients act on it.</p>
+<hr />
+<h4 id="mag_right-tip-pass-a-health-check-on-the-answer">🔎 Tip: Pass a
+Health Check on the Answer</h4>
+<p><code>backend_health</code> asks "What is the capital of France?
+Answer in one word." at temperature 0 with 16 tokens, and passes only
+when the reply contains "paris". A non-empty reply proves the port is
+open. A broken build of this model family has answered with repeated
+text, and that reply is non-empty too.</p>
+<hr />
+<h4 id="mag_right-tip-clamp-every-number-the-model-sends">🔎 Tip: Clamp
+Every Number the Model Sends</h4>
+<p><code>tail</code> is clamped to 1 to 2000 lines and
+<code>max_tokens</code> to 1 to 1024. <code>backend</code> is checked
+against a fixed list before any AWS call, and
+<code>launch_backends</code> rejects an unknown name before
+<code>stage/up.sh</code> starts. A model that asks for a million log
+lines gets two thousand.</p>
+<hr />
+<h4 id="mag_right-tip-run-long-jobs-detached-and-hand-back-a-log">🔎
+Tip: Run Long Jobs Detached and Hand Back a Log</h4>
+<p><code>stage/up.sh</code> and <code>stage/down.sh</code> each took
+under half a minute here, and the backends behind them take up to twenty
+minutes to serve. Both scripts run with
+<code>start_new_session=True</code> and their output in
+<code>stage/up.log</code> or <code>stage/down.log</code>, so the tool
+call returns at once and the job survives the MCP session closing.
+<code>launch_log</code> reads the log back.</p>
+<hr />
+<h4 id="compare-and-contrast">Compare and Contrast</h4>
+<p><img src="https://raw.githubusercontent.com/xbill9/aws-inference-strands/main/docs/article/mcp/medium/img/devto-aws-inference-mcp-table-3.png"
+alt="Table: stage scripts, MCP server" /></p>
+<hr />
+<h4 id="so-which-one">So, Which One?</h4>
+<p>🥇 <strong>The MCP server</strong> to operate the demo from a chat
+session: inventory, health, logs and teardown in plain questions, with
+the billing count and the pass or fail computed in code.</p>
+<p>🥈 <strong>The stage scripts</strong> for the talk itself and
+anything scripted, and for the port forwards, which
+<code>ask_backend</code> and the demos need and the server does not
+open.</p>
+<p>Both launch and stop the same resources, because one calls the
+other.</p>
+<hr />
+<h4 id="summary">Summary</h4>
+<p>The goal of this article was to operate a six-backend AWS inference
+demo through MCP. The key to the solution was one server over the demo's
+own code, reaching instances through SSM Run Command and launching
+through the same scripts a person runs. The results were:</p>
+<ul>
+<li>🟢 <strong>Eight tools in one file over the demo's own
+code</strong>: the same <code>chat_once</code> and <code>count</code>
+functions the scripts call, and the same <code>stage/up.sh</code> and
+<code>stage/down.sh</code>.</li>
+<li>🟢 <strong>Every tool is marked read-only, write or
+destructive</strong>, and <code>tools/list</code> carries the marks to
+the client.</li>
+<li>🟢 <strong>Health checks and logs run on the instance through SSM
+Run Command</strong>, with no inbound rules and no port forwards; g6
+passed 12.2 minutes after launch and inf2 20.4 minutes after.</li>
+<li>🟢 <strong>A launch, health checks, logs, requests and a teardown
+ran from one session</strong>, and <code>list_backends</code> read
+<code>billing_now: 0</code> 21 seconds after <code>teardown</code>.</li>
+<li>🟢 <strong>Demo 1 over MCP matched demo 1 in-process on
+Bedrock</strong>: 20 of 20 correct with the right filter both ways,
+median 1.07 seconds both ways.</li>
+<li>⚠️ <strong>Failed calls return a ❌ line with <code>isError</code>
+false</strong>, so a client that branches on the protocol flag treats
+them as successes.</li>
+<li>⚠️ <strong><code>ask_backend</code> depends on
+<code>demo.env</code></strong>, which outlives the forwards; it lists
+backends that are down until <code>stage/forward.sh</code> runs
+again.</li>
+<li>❌ <strong>The server opens no port forwards</strong>, so
+<code>ask_backend</code> and the demos still need
+<code>stage/forward.sh</code> from a terminal.</li>
+</ul>
+<p>Scope: one session on 2026-10-13 (UTC), us-east-2, two on-demand
+instances (g6.xlarge and inf2.xlarge) from launch to teardown, with
+Bedrock in us-east-1. trn1, g5g and the SageMaker endpoint were not
+launched, so their tools are shown only in their not-running replies.
+Health checks were one minute apart, so each time to ready is accurate
+to about a minute. Demo 1 ran 20 times per tool set on Bedrock only,
+with the MCP Python SDK 2.1.1, Strands Agents 1.55.0 and Python 3.14.7
+on a laptop.</p>
+<p>The strategy for using MCP to operate Gemma 4 inference backends
+across AWS was validated with an incremental step by step approach.</p>
+<hr />
+<h4 id="references">References</h4>
+<ul>
+<li><a
+href="https://github.com/xbill9/aws-inference-strands">aws-inference-strands
+| GitHub</a></li>
+<li><a
+href="https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0">Gemma
+4 Inference on AWS: Bedrock, SageMaker, GPUs, Inferentia and Trainium
+Behind One Strands Agent | DEV</a></li>
+<li><a
+href="https://modelcontextprotocol.io/specification/2025-11-25/server/tools">Model
+Context Protocol specification, tools | modelcontextprotocol.io</a></li>
+<li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP
+Python SDK | GitHub</a></li>
+<li><a
+href="https://strandsagents.com/docs/user-guide/sdk/tools/mcp-tools/">Strands
+Agents, MCP tools | strandsagents.com</a></li>
+<li><a
+href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">AWS
+Systems Manager Run Command | AWS</a></li>
+</ul>
+</body>
+</html>
