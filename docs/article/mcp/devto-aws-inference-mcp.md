@@ -462,5 +462,5 @@ The strategy for using MCP to operate Gemma 4 inference backends across AWS was 
 * [Gemma 4 Inference on AWS: Bedrock, SageMaker, GPUs, Inferentia and Trainium Behind One Strands Agent | DEV](https://dev.to/aws-builders/gemma-4-inference-on-aws-bedrock-sagemaker-gpus-inferentia-and-trainium-behind-one-strands-agent-1dm0)
 * [Model Context Protocol specification, tools | modelcontextprotocol.io](https://modelcontextprotocol.io/specification/2025-11-25/server/tools)
 * [MCP Python SDK | GitHub](https://github.com/modelcontextprotocol/python-sdk)
-* [Strands Agents, MCP tools | strandsagents.com](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/tools/mcp-tools/)
+* [Strands Agents, MCP tools | strandsagents.com](https://strandsagents.com/docs/user-guide/sdk/tools/mcp-tools/)
 * [AWS Systems Manager Run Command | AWS](https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html)
